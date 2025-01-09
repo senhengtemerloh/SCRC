@@ -1,19 +1,23 @@
 // Function to fetch Excel data and display products
 async function loadExcelData() {
   try {
-    const response = await fetch(window.location.origin + '/SCRC/data.xlsx'); // Fetch the Excel file from root
+    console.log("Fetching Excel data...");
+    const response = await fetch('https://senhengtemerloh.github.io/SCRC/data.xlsx'); // Full URL to the Excel file
+
     if (!response.ok) {
-      throw new Error('Failed to load Excel file');
+      throw new Error(`Failed to load Excel file: ${response.statusText}`);
     }
 
-    const arrayBuffer = await response.arrayBuffer();
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+    const arrayBuffer = await response.arrayBuffer(); // Read file as binary buffer
+    const workbook = XLSX.read(arrayBuffer, { type: 'array' }); // Parse workbook
     const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Read the first sheet
-    const products = XLSX.utils.sheet_to_json(worksheet); // Convert to JSON format
-    populateProducts(products);
+    const products = XLSX.utils.sheet_to_json(worksheet); // Convert sheet to JSON
+
+    console.log("Excel data fetched successfully:", products);
+    populateProducts(products); // Populate products on the page
   } catch (error) {
-    console.error(error);
-    alert("Failed to load Excel file. Please make sure the file is available.");
+    console.error("Error loading Excel file:", error);
+    alert("Failed to load Excel file. Please check the console for details.");
   }
 }
 
@@ -21,6 +25,11 @@ async function loadExcelData() {
 function populateProducts(products) {
   const productGrid = document.getElementById("product-grid");
   productGrid.innerHTML = ""; // Clear any existing content
+
+  if (products.length === 0) {
+    productGrid.innerHTML = "<p>No products found in the Excel file.</p>";
+    return;
+  }
 
   products.forEach((product) => {
     const productBox = document.createElement("div");
@@ -65,5 +74,5 @@ function populateProducts(products) {
   });
 }
 
-// Load Excel data when the page loads
+// Load Excel data on page load
 window.onload = loadExcelData;
