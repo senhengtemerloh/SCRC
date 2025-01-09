@@ -2,87 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catalogue (100% Sheet)</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-    }
-    body {
-      margin: 20px;
-      background-color: #f0f0f0;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .product-box {
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .image-container {
-      width: 100%;
-      position: relative;
-      padding-top: 100%;
-      overflow: hidden;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .image-container img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-    .full-name {
-      font-size: 1rem;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .scf-code {
-      font-size: 0.85rem;
-      color: #007bff;
-      margin-bottom: 5px;
-    }
-    .pricing {
-      font-size: 0.85rem;
-      color: #666;
-      margin-bottom: 10px;
-    }
-    .promo-price {
-      background-color: #C00000;
-      color: #fff;
-      padding: 12px 16px;
-      border-radius: 6px;
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .remark {
-      font-size: 0.7rem;
-      color: #666;
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -90,75 +12,7 @@
   <div id="product-grid" class="product-grid"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-  <script>
-    async function loadExcelData() {
-      try {
-        const response = await fetch(window.location.origin + '/SCRC/data.xlsx');
-        if (!response.ok) {
-          throw new Error('Failed to load Excel file');
-        }
-
-        const arrayBuffer = await response.arrayBuffer();
-        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const products = XLSX.utils.sheet_to_json(worksheet); // Convert sheet to JSON
-        populateProducts(products);
-      } catch (error) {
-        console.error(error);
-        alert("Failed to load Excel file. Please make sure the file is available.");
-      }
-    }
-
-    function populateProducts(products) {
-      const productGrid = document.getElementById("product-grid");
-      productGrid.innerHTML = ""; // Clear any existing content
-
-      products.forEach((product) => {
-        const productBox = document.createElement("div");
-        productBox.className = "product-box";
-
-        const imageContainer = document.createElement("div");
-        imageContainer.className = "image-container";
-
-        const image = document.createElement("img");
-        image.src = product.IMAGE || "https://via.placeholder.com/300x300?text=No+Image"; // Use URL from spreadsheet
-        image.alt = product["FULL NAME"] || "Product Image";
-
-        imageContainer.appendChild(image);
-        productBox.appendChild(imageContainer);
-
-        const fullName = document.createElement("div");
-        fullName.className = "full-name";
-        fullName.innerText = product["FULL NAME"] || "No Name Provided";
-        productBox.appendChild(fullName);
-
-        const scfCode = document.createElement("div");
-        scfCode.className = "scf-code";
-        scfCode.innerText = `SCF: ${product.SCF || "N/A"}`;
-        productBox.appendChild(scfCode);
-
-        const pricing = document.createElement("div");
-        pricing.className = "pricing";
-        pricing.innerText = `RCP: ${product.RCP || "N/A"} | Member Price: ${product.MEMBER || "N/A"}`;
-        productBox.appendChild(pricing);
-
-        const promoPrice = document.createElement("div");
-        promoPrice.className = "promo-price";
-        promoPrice.innerText = `${product.RM || "RM0.00"} + ${product["S-COIN"] || "0"} S-Coin pts`;
-        productBox.appendChild(promoPrice);
-
-        const remark = document.createElement("div");
-        remark.className = "remark";
-        remark.innerText = `Remark: ${product.REMARK || ""}`;
-        productBox.appendChild(remark);
-
-        productGrid.appendChild(productBox);
-      });
-    }
-
-    // Load Excel data on page load
-    window.onload = loadExcelData;
-  </script>
+  <script src="script.js"></script>
 
 </body>
 </html>
