@@ -93,8 +93,8 @@
   <script>
     async function loadExcelData() {
       try {
-        // Fetch the Excel file (from GitHub Pages root folder)
-        const response = await fetch(window.location.origin + '/data.xlsx');
+        // Correct path for GitHub Pages with /SCRC/ subdirectory
+        const response = await fetch(window.location.origin + '/SCRC/data.xlsx');
         if (!response.ok) {
           throw new Error('Failed to load Excel file');
         }
@@ -102,7 +102,7 @@
         const arrayBuffer = await response.arrayBuffer();
         const workbook = XLSX.read(arrayBuffer, { type: 'array' });
         const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        const products = XLSX.utils.sheet_to_json(worksheet); // Convert to JSON
+        const products = XLSX.utils.sheet_to_json(worksheet); // Convert sheet to JSON
         populateProducts(products);
       } catch (error) {
         console.error(error);
