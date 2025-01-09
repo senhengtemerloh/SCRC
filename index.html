@@ -93,7 +93,6 @@
   <script>
     async function loadExcelData() {
       try {
-        // Correct path for GitHub Pages with /SCRC/ subdirectory
         const response = await fetch(window.location.origin + '/SCRC/data.xlsx');
         if (!response.ok) {
           throw new Error('Failed to load Excel file');
@@ -122,11 +121,8 @@
         imageContainer.className = "image-container";
 
         const image = document.createElement("img");
-        image.src = product.IMAGE || "assets/placeholder.png";
+        image.src = product.IMAGE || "https://via.placeholder.com/300x300?text=No+Image"; // Use URL from spreadsheet
         image.alt = product["FULL NAME"] || "Product Image";
-        image.onerror = function () {
-          this.src = "assets/fallback-image.png";
-        };
 
         imageContainer.appendChild(image);
         productBox.appendChild(imageContainer);
