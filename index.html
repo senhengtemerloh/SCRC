@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Catalogue (100% Sheet)</title>
   <style>
-    /* Same CSS for styling */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -90,23 +89,30 @@
   <h1>Catalogue (100% Sheet)</h1>
   <div id="product-grid" class="product-grid"></div>
 
-  <!-- Include SheetJS library for reading XLSX -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script>
-    // Function to fetch the Excel file and load data
+    // Function to fetch Excel file or JSON
     async function loadExcelData() {
-      const response = await fetch('data.xlsx'); // Ensure data.xlsx is in the same directory as index.html
-      const arrayBuffer = await response.arrayBuffer(); // Read file as an array buffer
-      const workbook = XLSX.read(arrayBuffer, { type: 'array' }); // Parse workbook
-      const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Read the first sheet
-      const products = XLSX.utils.sheet_to_json(worksheet); // Convert to JSON
-      populateProducts(products); // Populate the page
+      try {
+        const response = await fetch('data.xlsx?' + new Date().getTime()); // Cache-busting
+        if (!response.ok) {
+          throw new Error('Failed to load Excel. Falling back to JSON.');
+        }
+        const arrayBuffer = await response.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const products = XLSX.utils.sheet_to_json(worksheet); // Convert Excel to JSON
+        populateProducts(products); // Populate page
+      } catch (error) {
+        console.error(error);
+        alert("Failed to load Excel file. Please ensure it's available.");
+      }
     }
 
-    // Populate the page with products
+    // Function to populate products on the page
     function populateProducts(products) {
       const productGrid = document.getElementById("product-grid");
-      productGrid.innerHTML = ""; // Clear existing content
+      productGrid.innerHTML = ""; // Clear any existing content
 
       products.forEach((product) => {
         const productBox = document.createElement("div");
@@ -118,7 +124,6 @@
         const image = document.createElement("img");
         image.src = product.IMAGE || "assets/placeholder.png";
         image.alt = product["FULL NAME"] || "Product Image";
-
         image.onerror = function () {
           this.src = "assets/fallback-image.png";
         };
@@ -155,7 +160,7 @@
       });
     }
 
-    // Load Excel data when page loads
+    // Load Excel data when the page loads
     window.onload = loadExcelData;
   </script>
 
