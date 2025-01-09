@@ -69,7 +69,7 @@ function populateProducts(products) {
 
     const pricing = document.createElement("div");
     pricing.className = "pricing";
-    pricing.innerText = `RCP: ${product.RCP || "N/A"} | Member Price: ${product.MEMBER || "N/A"}`;
+    pricing.innerText = `RCP: RM${product.RCP || "N/A"} | Member Price: RM${product.MEMBER || "N/A"}`;
     productBox.appendChild(pricing);
 
     const promoPrice = document.createElement("div");
