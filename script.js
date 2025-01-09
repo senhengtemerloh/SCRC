@@ -55,6 +55,11 @@ function populateProducts(products) {
     scfCode.innerText = `SCF: ${product.SCF || "N/A"}`;
     productBox.appendChild(scfCode);
 
+    const brandName = document.createElement("div");
+    brandName.className = "brand-name";
+    brandName.innerText = `Brand: ${product.BRAND || "Unknown Brand"}`;
+    productBox.appendChild(brandName);
+
     const pricing = document.createElement("div");
     pricing.className = "pricing";
     pricing.innerText = `RCP: ${product.RCP || "N/A"} | Member Price: ${product.MEMBER || "N/A"}`;
