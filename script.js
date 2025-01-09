@@ -10,10 +10,17 @@ async function loadExcelData() {
 
     const arrayBuffer = await response.arrayBuffer(); // Read file as binary buffer
     const workbook = XLSX.read(arrayBuffer, { type: 'array' }); // Parse workbook
-    const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Read the first sheet
+
+    // Fetch data from the sheet named "100%"
+    const sheetName = "100%";
+    const worksheet = workbook.Sheets[sheetName];
+    if (!worksheet) {
+      throw new Error(`Sheet "${sheetName}" not found in the Excel file.`);
+    }
+
     const products = XLSX.utils.sheet_to_json(worksheet); // Convert sheet to JSON
 
-    console.log("Excel data fetched successfully:", products);
+    console.log(`Excel data fetched successfully from sheet "${sheetName}":`, products);
     populateProducts(products); // Populate products on the page
   } catch (error) {
     console.error("Error loading Excel file:", error);
