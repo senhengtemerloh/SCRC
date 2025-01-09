@@ -1,0 +1,2119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catalogue (100%)</title>
+  <style>
+    /* Basic reset & font setup */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      margin: 20px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Grid container for products */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Product box styling */
+    .product-box {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* 1:1 ratio container for the product image */
+    .image-container {
+      width: 100%;
+      position: relative;
+      padding-top: 100%; /* Ensures a 1:1 square */
+      overflow: hidden;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .image-container img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    /* Full Name styling */
+    .full-name {
+      font-size: 1rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    /* SCF Code styling */
+    .scf-code {
+      font-size: 0.85rem;  /* Same as pricing */
+      font-weight: normal;  /* No bold */
+      color: #007bff;  /* Different color for SCF (blue) */
+      margin-bottom: 5px;
+    }
+
+    /* Pricing Section (RCP & Member Price) */
+    .pricing {
+      font-size: 0.85rem;  /* Smaller font size */
+      font-weight: normal;  /* No bold */
+      color: #666;  /* Lighter color for thinner look */
+      margin-bottom: 10px;
+    }
+
+    /* Promo price: bigger, bolder, red background, white text */
+    .promo-price {
+      background-color: #C00000;
+      color: #fff;
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Remark Section */
+    .remark {
+      font-size: 0.7rem;
+      color: #666;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Catalogue (100% Sheet)</h1>
+
+  <!-- Product grid container -->
+  <div id="product-grid" class="product-grid"></div>
+
+  <script>
+    function loadProducts() {
+      const productGrid = document.getElementById("product-grid");
+      const products = window.myData["100%"]; // Make sure to populate 'myData' in your JSON
+
+      products.forEach((product) => {
+        const productBox = document.createElement("div");
+        productBox.className = "product-box";
+
+        // Create image container and image
+        const imageContainer = document.createElement("div");
+        imageContainer.className = "image-container";
+
+        const image = document.createElement("img");
+        image.src = product.IMAGE || "assets/placeholder.png";  // Placeholder if IMAGE is missing
+        image.alt = product["FULL NAME"] || "Product Image";
+
+        // Add fallback mechanism
+        image.onerror = function () {
+          this.src = "assets/fallback-image.png";  // Fallback if URL is broken
+        };
+
+        imageContainer.appendChild(image);
+        productBox.appendChild(imageContainer);
+
+        // Full name text
+        const fullName = document.createElement("div");
+        fullName.className = "full-name";
+        fullName.innerText = product["FULL NAME"] || "No Name Provided";
+        productBox.appendChild(fullName);
+
+        // SCF code text
+        const scfCode = document.createElement("div");
+        scfCode.className = "scf-code";
+        scfCode.innerText = `SCF: ${product.SCF || "N/A"}`;
+        productBox.appendChild(scfCode);
+
+        // Pricing section (RCP and Member Price)
+        const pricing = document.createElement("div");
+        pricing.className = "pricing";
+        pricing.innerText = `RCP: ${product.RCP || "N/A"} | Member Price: ${product.MEMBER || "N/A"}`;
+        productBox.appendChild(pricing);
+
+        // Promo price section
+        const promoPrice = document.createElement("div");
+        promoPrice.className = "promo-price";
+        promoPrice.innerText = `${product.RM || "RM0.00"} + ${product["S-COIN"] || "0"} S-Coin pts`;
+        productBox.appendChild(promoPrice);
+
+        // Remark section
+        const remark = document.createElement("div");
+        remark.className = "remark";
+        remark.innerText = `Remark: ${product.REMARK || ""}`;
+        productBox.appendChild(remark);
+
+        // Add product box to the grid
+        productGrid.appendChild(productBox);
+      });
+    }
+
+    window.onload = loadProducts;
+
+    // Example embedded JSON data (you will replace this part manually)
+    window.myData = {
+      "100%": [
+    {
+      "BRAND": "ASTONISH",
+      "SCF": "SCF-100.C6110PE",
+      "MODEL": "AST-C6110PE",
+      "FULL NAME": "Astonish PREMIUM EDITION LAVENDER BLOSSOM FLOOR CLEANER",
+      "RCP": "RM27.90",
+      "MEMBER": "RM27.90",
+      "RM": "RM0",
+      "S-COIN": "2,790",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shorturl.at/QNuFm"
+    },
+    {
+      "BRAND": "ASTONISH",
+      "SCF": "SCF-100.C6920PE",
+      "MODEL": "AST-C6920PE",
+      "FULL NAME": "Astonish ASTONISH PREMIUM EDITION STAINLESS STEEL & SHINE",
+      "RCP": "RM27.90",
+      "MEMBER": "RM27.90",
+      "RM": "RM0",
+      "S-COIN": "2,790",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shorturl.at/sBR33"
+    },
+    {
+      "BRAND": "ASTONISH",
+      "SCF": "SCF-100.PRO1-5738",
+      "MODEL": "AST-PRO1-5738",
+      "FULL NAME": "Astonish PREMIUM PACK PRO1 (C8600+C9630+C1441)",
+      "RCP": "RM87.70",
+      "MEMBER": "RM69.00",
+      "RM": "RM0",
+      "S-COIN": "6,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025"
+    },
+    {
+      "BRAND": "ASTONISH",
+      "SCF": "SCF-100.PRO8340",
+      "MODEL": "AST-PRO8340",
+      "FULL NAME": "Astonish6 IN 1 ASTONISH BODY & SOUL MINI SHOWER GEL GIFT PACK",
+      "RCP": "RM32.90",
+      "MEMBER": "RM23.00",
+      "RM": "RM0",
+      "S-COIN": "2,300",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shorturl.at/gz8hV"
+    },
+    {
+      "BRAND": "BELKIN",
+      "SCF": "SCF-100.F9H110VSACW",
+      "MODEL": "BKN-F9H110VSACW",
+      "FULL NAME": "Belkin HOME SERIES 1 OUTLET SURGE CUBE",
+      "RCP": "RM99.00",
+      "MEMBER": "RM97.00",
+      "RM": "RM0",
+      "S-COIN": "9,700",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shorturl.at/Dg7ss"
+    },
+    {
+      "BRAND": "BELKIN",
+      "SCF": "SCF-100.F9H410SA2M",
+      "MODEL": "BKN-F9H410SA2M",
+      "FULL NAME": "Belkin 4-SOCKET 2M SURGEMASTER",
+      "RCP": "RM149.00",
+      "MEMBER": "RM145.00",
+      "RM": "RM0",
+      "S-COIN": "14,500",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shorturl.at/UWOKU"
+    },
+    {
+      "BRAND": "BELKIN",
+      "SCF": "SCF-100.WIZ019BTBK",
+      "MODEL": "BKN-WIZ019BTBK",
+      "FULL NAME": "Belkin Boostcharge Pro 2-IN-1 PAD With Magsafe",
+      "RCP": "RM559.00",
+      "MEMBER": "RM559.00",
+      "RM": "RM0",
+      "S-COIN": "55,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.belkin.com/on/demandware.static/-/Sites-master-product-catalog-blk/default/dw9ca5ad2b/images/hi-res/7/7d4364523d4952a0_WIZ019-BLK_MagSafe_BoostChargePro_2in1WirelessChargeDock_Hero_WEB.png"
+    },
+    {
+      "BRAND": "BELKIN",
+      "SCF": "SCF-100.WIZ019BTWH",
+      "MODEL": "BKN-WIZ019BTWH",
+      "FULL NAME": "Belkin Boostcharge Pro 2-IN-1 PAD With Magsafe",
+      "RCP": "RM559.00",
+      "MEMBER": "RM559.00",
+      "RM": "RM0",
+      "S-COIN": "55,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn2.electronicscrazy.sg/Productimage/2023-09-1506-13-509.webp"
+    },
+    {
+      "BRAND": "CENTO",
+      "SCF": "SCF-100.DUST3605",
+      "MODEL": "CT-DUST3605",
+      "FULL NAME": "Cento Ecocen CEILING FAN DUSTER",
+      "RCP": "RM79.00",
+      "MEMBER": "RM55.00",
+      "RM": "RM0",
+      "S-COIN": "5,500",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/8cc94104b5a94ee186fa9cec8c992f82"
+    },
+    {
+      "BRAND": "CENTO",
+      "SCF": "SCF-100.ECOGS231REC",
+      "MODEL": "CT-ECOGS231REC",
+      "FULL NAME": "Cento Ecocen ECOCEN GLASS STORAGE",
+      "RCP": "RM55.00",
+      "MEMBER": "RM49.00",
+      "RM": "RM0",
+      "S-COIN": "4,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.homepro.com.my/ART_IMAGE/10/750/1075088/447x447/15072024_1075088$Imagex1.jpg"
+    },
+    {
+      "BRAND": "CENTO",
+      "SCF": "SCF-100.ECOGS341FOC2",
+      "MODEL": "CT-ECOGS341FOC2",
+      "FULL NAME": "Cento Ecocen 4+2 FOOD CONTAINER",
+      "RCP": "RM129.00",
+      "MEMBER": "RM125.00",
+      "RM": "RM0",
+      "S-COIN": "12,500",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.homepro.com.my/ART_IMAGE/10/751/1075121/447x447/15072024_1075121$Imagex2.jpg"
+    },
+    {
+      "BRAND": "CENTO",
+      "SCF": "SCF-100.ETX9807",
+      "MODEL": "CT-EXT9807",
+      "FULL NAME": "Cento 2 Way Heavy Cable Reel W/Sirim 7 Meter",
+      "RCP": "RM99.00",
+      "MEMBER": "RM93.00",
+      "RM": "RM0",
+      "S-COIN": "9,300",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.1006(G)",
+      "MODEL": "DLT-1006(G)",
+      "FULL NAME": "Delighto SOUP POT 28CM (GREEN)",
+      "RCP": "RM499.00",
+      "MEMBER": "RM199.00",
+      "RM": "RM0",
+      "S-COIN": "19,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/sg-11134201-22120-rkz7wgvxrqkvc4"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.1006(R)",
+      "MODEL": "DLT-1006(R)",
+      "FULL NAME": "Delighto SOUP POT 28CM",
+      "RCP": "RM499.00",
+      "MEMBER": "RM199.00",
+      "RM": "RM0",
+      "S-COIN": "19,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/sg-11134201-22120-s9xxv1jxrqkv58"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.1006(Y)",
+      "MODEL": "DLT-1006(Y)",
+      "FULL NAME": "Delighto SOUP POT 28CM (YELLOW)",
+      "RCP": "RM499.00",
+      "MEMBER": "RM199.00",
+      "RM": "RM0",
+      "S-COIN": "19,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/sg-11134201-22120-aw2jcqnxrqkv17"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.1011(Y)",
+      "MODEL": "DLT-1011(Y)",
+      "FULL NAME": "Delighto 24CM LOW CASSEROLE-YELLOW",
+      "RCP": "RM399.00",
+      "MEMBER": "RM199.00",
+      "RM": "RM0",
+      "S-COIN": "19,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/fd2817c7bbe333f7ac0874ffdafc9638.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.1012(P)",
+      "MODEL": "DLT-1012(P)",
+      "FULL NAME": "Delighto 20CM SAUCE POT-PINK",
+      "RCP": "RM459.00",
+      "MEMBER": "RM169.00",
+      "RM": "RM0",
+      "S-COIN": "16,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://img.lazcdn.com/g/p/807e4e0898e86f0a0752ab816370e9fe.jpg_720x720q80.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.1012(Y)",
+      "MODEL": "DLT-1012(Y)",
+      "FULL NAME": "Delighto 20CM SAUCE POT-YELLOW",
+      "RCP": "RM459.00",
+      "MEMBER": "RM169.00",
+      "RM": "RM0",
+      "S-COIN": "16,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/a218d0dd0439fcbd8848008babc934a5.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2001(OR)",
+      "MODEL": "DLT-2001(OR)",
+      "FULL NAME": "Delighto Cast Iron Casserole 22cm SOUP POT",
+      "RCP": "RM439.00",
+      "MEMBER": "RM169.00",
+      "RM": "RM0",
+      "S-COIN": "16,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/f430107817a46f4b49e9ea45f0458002.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2002(OR)",
+      "MODEL": "DLT-2002(OR)",
+      "FULL NAME": "Delighto Cast Iron Casserole 24cm SOUP POT",
+      "RCP": "RM479.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/fd6fc70102632c80a86fa685d68d0a04.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2003(OR)",
+      "MODEL": "DLT-2003(OR)",
+      "FULL NAME": "Delighto Oval Casserole 28cm SOUP POT",
+      "RCP": "RM519.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/b7fe2e053b4a708c2e6f8bb2862163a4"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2003(U)",
+      "MODEL": "DLT-2003(U)",
+      "FULL NAME": "Delighto Oval Casserole 28cm SOUP POT",
+      "RCP": "RM519.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/3a11f75aeda53fc29000b656c78ea1af"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2004(U)",
+      "MODEL": "DLT-2004(U)",
+      "FULL NAME": "Delighto MOMMY POT 26CM SOUP POT",
+      "RCP": "RM599.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/9fe573a9a552e3eacfd3a2061e5f0ffe"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2005(OR)",
+      "MODEL": "DLT-2005(OR)",
+      "FULL NAME": "Delighto SHALLOW CASSEROLE 30CM SOUP PO",
+      "RCP": "RM639.00",
+      "MEMBER": "RM239.00",
+      "RM": "RM0",
+      "S-COIN": "23,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/ad15719ac040c0ffe088d2aad5cc8e6d.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2005(R)",
+      "MODEL": "DLT-2005(R)",
+      "FULL NAME": "Delighto SHALLOW CASSEROLE 30CM SOUP PO",
+      "RCP": "RM639.00",
+      "MEMBER": "RM239.00",
+      "RM": "RM0",
+      "S-COIN": "23,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/2ba0da50a0a7c9ceab6634c37f792c0b"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.2005(U)",
+      "MODEL": "DLT-2005(U)",
+      "FULL NAME": "Delighto SHALLOW CASSEROLE 30CM SOUP PO",
+      "RCP": "RM639.00",
+      "MEMBER": "RM239.00",
+      "RM": "RM0",
+      "S-COIN": "23,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/edaf564d716b999d167a39f8809bc3f0"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.3001",
+      "MODEL": "DLT-3001",
+      "FULL NAME": "Delighto SOUP POT 24CM (ROSSY)",
+      "RCP": "RM669.00",
+      "MEMBER": "RM259.00",
+      "RM": "RM0",
+      "S-COIN": "25,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/1e010e8aa705e12cbc1cfd5578d2739b.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.3002",
+      "MODEL": "DLT-3002",
+      "FULL NAME": "Delighto SAUCE PAN 14CM (ROSSY)",
+      "RCP": "RM369.00",
+      "MEMBER": "RM149.00",
+      "RM": "RM0",
+      "S-COIN": "14,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/06/25",
+      "IMAGE": "https://down-my.img.susercontent.com/file/88efa765cfa5ad2ba6734d78ad66094e"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.3003",
+      "MODEL": "DLT-3003",
+      "FULL NAME": "Delighto SAUCE PAN 18CM (ROSSY)",
+      "RCP": "RM439.00",
+      "MEMBER": "RM169.00",
+      "RM": "RM0",
+      "S-COIN": "16,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/06/25",
+      "IMAGE": "https://down-my.img.susercontent.com/file/2a0a0beb8b648e65b05ae39a835cf079"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.3004",
+      "MODEL": "DLT-3004",
+      "FULL NAME": "Delighto SAUCE PAN 20CM (ROSSY)",
+      "RCP": "RM489.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/06/25",
+      "IMAGE": "https://my-test-11.slatic.net/p/7c09f4ccbd818c7a2fd3e441827c09f9.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.3005",
+      "MODEL": "DLT-3005",
+      "FULL NAME": "Delighto FRYPAN 20CM (ROSSY)",
+      "RCP": "RM409.00",
+      "MEMBER": "RM159.00",
+      "RM": "RM0",
+      "S-COIN": "15,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7r98x-lr3w81wowt2caa"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.3012",
+      "MODEL": "DLT-3012",
+      "FULL NAME": "Delighto FRYPAN 28CM (GLOSSY)",
+      "RCP": "RM499.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/41dd13d6831426e35aeacf1d45ed70db"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.AR172",
+      "MODEL": "DLT-AR172",
+      "FULL NAME": "Delighto STICK VACUUM",
+      "RCP": "RM699.00",
+      "MEMBER": "RM319.00",
+      "RM": "RM0",
+      "S-COIN": "31,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/34547c78ae8a605f4f38f45e1d2af70f.jpg"
+    },
+    {
+      "BRAND": "DELIGHTO",
+      "SCF": "SCF-100.H09",
+      "MODEL": "DLT-H09",
+      "FULL NAME": "Delighto PREMIUM STICK VACUUM",
+      "RCP": "RM949.00",
+      "MEMBER": "RM499.00",
+      "RM": "RM0",
+      "S-COIN": "49,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7r98z-lpan5t45fsfs55"
+    },
+    {
+      "BRAND": "ELECTROLUX",
+      "SCF": "SCF-100.EFP31312",
+      "MODEL": "ELE-EFP31312",
+      "FULL NAME": "Electrolux Stick Vacuum",
+      "RCP": "RM809.00",
+      "MEMBER": "RM699.00",
+      "RM": "RM0",
+      "S-COIN": "69,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shop.tbm.com.my/cdn/shop/products/electrolux-broom-standing-vacuum-cleaner-efp31312-tbm-your-neighbourhood-electrical-store-103311.jpg?v=1690981751&width=720"
+    },
+    {
+      "BRAND": "ELECTROLUX",
+      "SCF": "SCF-100.WQ611OGG",
+      "MODEL": "ELE-WQ611OGG",
+      "FULL NAME": "Electrolux Stick Vacuum",
+      "RCP": "RM1,049.00",
+      "MEMBER": "RM859.00",
+      "RM": "RM0",
+      "S-COIN": "85,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://bestdenki.com.my/media/catalog/product/cache/2a8088cbba62dcb5f58fee75f12b2390/w/q/wq611ogg.png"
+    },
+    {
+      "BRAND": "ENBLISS",
+      "SCF": "SCF-100.CSS0051",
+      "MODEL": "ENB-CSS0051",
+      "FULL NAME": "Enbliss Detergent Capsules",
+      "RCP": "RM39.00",
+      "MEMBER": "RM39.00",
+      "RM": "RM0",
+      "S-COIN": "3,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://st4.depositphotos.com/14953852/22772/v/450/depositphotos_227724992-stock-illustration-image-available-icon-flat-vector.jpg"
+    },
+    {
+      "BRAND": "ENBLISS",
+      "SCF": "SCF-100.CSS0068",
+      "MODEL": "ENB-CSS0068",
+      "FULL NAME": "Enbliss Detergent Capsules",
+      "RCP": "RM49.00",
+      "MEMBER": "RM49.00",
+      "RM": "RM0",
+      "S-COIN": "4,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://st4.depositphotos.com/14953852/22772/v/450/depositphotos_227724992-stock-illustration-image-available-icon-flat-vector.jpg"
+    },
+    {
+      "BRAND": "ENBLISS",
+      "SCF": "SCF-100.EBS4158",
+      "MODEL": "ENB-EBS4158",
+      "FULL NAME": "Enbliss washing machine cleaner",
+      "RCP": "RM29.00",
+      "MEMBER": "RM29.00",
+      "RM": "RM0",
+      "S-COIN": "2,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://img.lazcdn.com/g/p/6b3381ce8d79024511fc98a1d0731b80.jpg_720x720q80.jpg"
+    },
+    {
+      "BRAND": "ENBLISS",
+      "SCF": "SCF-100.EBS4653",
+      "MODEL": "ENB-EBS4653",
+      "FULL NAME": "Enbliss Laundry Detergent 2.5L",
+      "RCP": "RM24.90",
+      "MEMBER": "RM24.90",
+      "RM": "RM0",
+      "S-COIN": "2,490",
+      "REMARK": "Price Increase Effective 01.01.2025, RM29.90",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/8ed0a6739bf626bc1b5fe21e399545f0.jpg"
+    },
+    {
+      "BRAND": "ENBLISS",
+      "SCF": "SCF-100.EBS4868",
+      "MODEL": "ENB-EBS4868",
+      "FULL NAME": "Enbliss Laundry Detergent 1.8L (Refil Pack)",
+      "RCP": "RM20.90",
+      "MEMBER": "RM20.90",
+      "RM": "RM0",
+      "S-COIN": "2,090",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://img2.biggo.com/spq6ATvS6GSaWME-OWLnWDLShtUiOsu4KphCusB0_FOo/https://img.srewardscentre.com.my/images/499996db-499d-4d06-b592-fa22e09476ab.jpg"
+    },
+    {
+      "BRAND": "FABER",
+      "SCF": "SCF-100.FBQ3216BK",
+      "MODEL": "FBR-FBQ3216BK",
+      "FULL NAME": "Faber PARTY GRILL & STEAMBOAT",
+      "RCP": "RM409.00",
+      "MEMBER": "RM299.00",
+      "RM": "RM0",
+      "S-COIN": "29,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.homepro.com.my/ART_IMAGE/10/542/1054246/447x447/27042023_1054246$Imagex1.jpg"
+    },
+    {
+      "BRAND": "FABER",
+      "SCF": "SCF-100.FMC1508WH",
+      "MODEL": "FBR-FMC1508WH",
+      "FULL NAME": "Faber Multi Cooker",
+      "RCP": "RM162.00",
+      "MEMBER": "RM115.00",
+      "RM": "RM0",
+      "S-COIN": "11,500",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://storage.bitpixel.cloud/faber/gallery/Z79lP0aDnFme5Ww98LH1XvVSqdqlfwePZNoObzQd.jpg"
+    },
+    {
+      "BRAND": "FABER",
+      "SCF": "SCF-100.FSM624",
+      "MODEL": "FBR-FSM624",
+      "FULL NAME": "Faber SANDWICH MAKER",
+      "RCP": "RM111.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://storage.bitpixel.cloud/faber/gallery/HLtBU3UwmhZDouQwp35mFOGJudVrma7iRCo5IRLH.jpg"
+    },
+    {
+      "BRAND": "FELIZTRIP",
+      "SCF": "SCF-100.TR606P35",
+      "MODEL": "FLZ-TR606P35",
+      "FULL NAME": "FELIZTRIP TR-606-P35 TRAVEL ADAPTOR GaN. 100-250V .AC Current 1100W at 100V and 2500W at 250V. 2x USB C and 2X USB A Fast Charging PD 35W",
+      "RCP": "RM129.00",
+      "MEMBER": "RM129.00",
+      "RM": "RM0",
+      "S-COIN": "12,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtM6zxQKRhRxIyM-j5Rxj3O5RilCKDmKp2HQ&s"
+    },
+    {
+      "BRAND": "FELIZTRIP",
+      "SCF": "SCF-100.TRP216GY",
+      "MODEL": "FLZ-TRP216GY",
+      "FULL NAME": "Premium Memory Foam Neck Pillow",
+      "RCP": "RM99.00",
+      "MEMBER": "RM99.00",
+      "RM": "RM0",
+      "S-COIN": "9,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "http://www.feliztrip.com/resources.jsmo.xin/templates/upload/11741/201809/1537671797926.jpg"
+    },
+    {
+      "BRAND": "GHOSTEK",
+      "SCF": "SCF-100.CAS3478",
+      "MODEL": "GHO-CAS3478",
+      "FULL NAME": "Ghostek MagSafe Covert7 Ultra-Thin Clear Case for Apple iPhone 2023 6.1 Pro- Clear",
+      "RCP": "RM89.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7ras9-m0ik43qepsezd9"
+    },
+    {
+      "BRAND": "GHOSTEK",
+      "SCF": "SCF-100.CAS3480",
+      "MODEL": "GHO-CAS3480",
+      "FULL NAME": "Ghostek MagSafe Covert7 Ultra-Thin Clear Case for Apple iPhone 2023 6.1 Pro- Smoke",
+      "RCP": "RM89.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://casefactorie.com/cdn/shop/files/GhostekCovert7ProtectionCaseforiPhone16ProSMOKE_8.jpg?v=1726719599&width=1445"
+    },
+    {
+      "BRAND": "GHOSTEK",
+      "SCF": "SCF-100.CAS3487",
+      "MODEL": "GHO-CAS3487",
+      "FULL NAME": "Ghostek MagSafe Covert7 Ultra-Thin Clear Case for Apple iPhone 2023 6.7 Pro- Clear",
+      "RCP": "RM89.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7ras9-m0ik43qepsezd9"
+    },
+    {
+      "BRAND": "GHOSTEK",
+      "SCF": "SCF-100.CAS3489",
+      "MODEL": "GHO-CAS3489",
+      "FULL NAME": "Ghostek MagSafe Covert7 Ultra-Thin Clear Case for Apple iPhone 2023 6.7 Pro- Smoke",
+      "RCP": "RM89.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://casefactorie.com/cdn/shop/files/GhostekCovert7ProtectionCaseforiPhone16ProSMOKE_8.jpg?v=1726719599&width=1445"
+    },
+    {
+      "BRAND": "JIMMY",
+      "SCF": "SCF-100.BX6",
+      "MODEL": "JMY-BX6",
+      "FULL NAME": "JIMMY PREMIUM DUST MITE KILLER",
+      "RCP": "RM799.00",
+      "MEMBER": "RM599.00",
+      "RM": "RM0",
+      "S-COIN": "59,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.jimmyglobal.com/upload/product/1644809591761531.jpg"
+    },
+    {
+      "BRAND": "JIMMY",
+      "SCF": "SCF-100.F6",
+      "MODEL": "JMY-F6",
+      "FULL NAME": "JIMMY PREMIUM HAIR DRYER",
+      "RCP": "RM1,199.00",
+      "MEMBER": "RM599.00",
+      "RM": "RM0",
+      "S-COIN": "59,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.jimmyglobal.com/upload/product/1616132806190557.png"
+    },
+    {
+      "BRAND": "JIMMY",
+      "SCF": "SCF-100.HW9",
+      "MODEL": "JMY-HW9",
+      "FULL NAME": "JIMMY CORDLESS VACUUM & WASHER",
+      "RCP": "RM2,099.00",
+      "MEMBER": "RM1,199.00",
+      "RM": "RM0",
+      "S-COIN": "119,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7r98x-lst72aeoyvav7b"
+    },
+    {
+      "BRAND": "JIMMY",
+      "SCF": "SCF-100.HW9PRO",
+      "MODEL": "JMY-HW9PRO",
+      "FULL NAME": "JIMMY Wet and Dry Vacuum",
+      "RCP": "RM2,699.00",
+      "MEMBER": "RM1,699.00",
+      "RM": "RM0",
+      "S-COIN": "169,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://digitehnika.ee/wp-content/uploads/2024/12/32865_3.jpg"
+    },
+    {
+      "BRAND": "JIMMY",
+      "SCF": "SCF-100.VACUUMSTAND",
+      "MODEL": "JMY-VACUUMSTAND",
+      "FULL NAME": "Jimmy VACUUM STAND",
+      "RCP": "RM119.00",
+      "MEMBER": "RM79.00",
+      "RM": "RM0",
+      "S-COIN": "7,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/781dc8004cdd5d702497e058553bf3db.webp"
+    },
+    {
+      "BRAND": "JIMMY",
+      "SCF": "SCF-100.VACUUMSTAND-W",
+      "MODEL": "JMY-VACUUMSTAND-W",
+      "FULL NAME": "Jimmy VACUUM STAND",
+      "RCP": "RM119.00",
+      "MEMBER": "RM79.00",
+      "RM": "RM0",
+      "S-COIN": "7,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/781dc8004cdd5d702497e058553bf3db.webp"
+    },
+    {
+      "BRAND": "JIMMY",
+      "SCF": "SCF-100.WB55",
+      "MODEL": "JMY-WB55",
+      "FULL NAME": "Jimmy DUST MITE KILLER",
+      "RCP": "RM699.00",
+      "MEMBER": "RM499.00",
+      "RM": "RM0",
+      "S-COIN": "49,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/da6fd0b03ae17c92defdd2e9c1b76ca9.jpg"
+    },
+    {
+      "BRAND": "JISULIFE",
+      "SCF": "SCF-100.FA43-60",
+      "MODEL": "JSL-FA43-60",
+      "FULL NAME": "Jisulife FA43 Life5 Plus (6000mAh) Handheld Fan",
+      "RCP": "RM99.00",
+      "MEMBER": "RM99.00",
+      "RM": "RM0",
+      "S-COIN": "9,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.netcombrunei.com/media/catalog/product/cache/7fba28f2ffd14e7be21e170ce6bb6de8/j/i/jisulife-60.jpg"
+    },
+    {
+      "BRAND": "JISULIFE",
+      "SCF": "SCF-100.LIFE9-36",
+      "MODEL": "JSL-LIFE9-36",
+      "FULL NAME": "Jisulife Handheld Fan Life9 (3600Mah)",
+      "RCP": "RM109.00",
+      "MEMBER": "RM109.00",
+      "RM": "RM0",
+      "S-COIN": "10,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://brightstarcomp.com/cdn/shop/files/ff239d9758a4c8baef6e184cb61d549a.jpg?v=1736160240"
+    },
+    {
+      "BRAND": "KHIND",
+      "SCF": "SCF-100.BLC129",
+      "MODEL": "KHN-BLC129",
+      "FULL NAME": "Khind500W FOOD PROCESSOR",
+      "RCP": "RM229.00",
+      "MEMBER": "RM165.00",
+      "RM": "RM0",
+      "S-COIN": "16,500",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.khind.com.my/image/cache/data/theme/products/image/product/Small%20Appliances/Kitchen%20Helpers/multi%20blender%20chopper/BLC129_KOL_wholeset-600x600_0.jpg"
+    },
+    {
+      "BRAND": "KHIND",
+      "SCF": "SCF-100.CF683DC",
+      "MODEL": "KHN-CF683DC",
+      "FULL NAME": "KhindCEILING FAN",
+      "RCP": "RM279.00",
+      "MEMBER": "RM199.00",
+      "RM": "RM0",
+      "S-COIN": "19,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.khind.com.my/image/cache/data/theme/products/image/product/Cooling%20Heating/Fan/CF683DC/cf683dc-kol-bk-02_010424230757-600x600_0.jpg"
+    },
+    {
+      "BRAND": "KHIND",
+      "SCF": "SCF-100.FPC900",
+      "MODEL": "KHN-FPC900",
+      "FULL NAME": "KhindCHOPPER",
+      "RCP": "RM99.00",
+      "MEMBER": "RM79.00",
+      "RM": "RM0",
+      "S-COIN": "7,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.store-assets.com/s/1264501/i/56795929.png"
+    },
+    {
+      "BRAND": "KHIND",
+      "SCF": "SCF-100.SF1682SE",
+      "MODEL": "KHN-SF1682SE",
+      "FULL NAME": "KhindSTAND FAN",
+      "RCP": "RM159.00",
+      "MEMBER": "RM100.00",
+      "RM": "RM0",
+      "S-COIN": "10,000",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.homepro.com.my/ART_IMAGE/10/663/1066319/447x447/16052023_1066319$Imagex3.jpg"
+    },
+    {
+      "BRAND": "KHIND",
+      "SCF": "SCF-100.WF1602SE",
+      "MODEL": "KHN-WF1602SE",
+      "FULL NAME": "KhindWALL FAN",
+      "RCP": "RM208.00",
+      "MEMBER": "RM148.00",
+      "RM": "RM0",
+      "S-COIN": "14,800",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.khind.com.my/image/cache/data/theme/products/image/product/Cooling%20Heating/Fan/WF1602SE/WF1602SE_BG_white-500x500_0.jpg"
+    },
+    {
+      "BRAND": "LAIFEN",
+      "SCF": "SCF-100.LFTB01-P(W)",
+      "MODEL": "LFN-LFTB01-P(W)",
+      "FULL NAME": "Laifen ELEC.TOOTHBRUSH",
+      "RCP": "RM559.00",
+      "MEMBER": "RM329.00",
+      "RM": "RM0",
+      "S-COIN": "32,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "31/1/2025",
+      "IMAGE": "https://www.sweetuskin.com/cdn/shop/files/Laifen_Wave_Electric_Toothbrush2_304b7243-48a4-49ab-b487-10986e4782d1.jpg?v=1728537287&width=750"
+    },
+    {
+      "BRAND": "LAIFEN",
+      "SCF": "SCF-100.MINI(G)",
+      "MODEL": "LFN-MINI(G)",
+      "FULL NAME": "LAIFEN MINI",
+      "RCP": "RM699.00",
+      "MEMBER": "RM419.00",
+      "RM": "RM0",
+      "S-COIN": "41,900",
+      "REMARK": "Promo 1/1 - 5/1, 6/1 resume RM459",
+      "Date Extended to": "31/1/2025",
+      "IMAGE": "https://img.srewardscentre.com.my/image/2582486e945c4478986cb9465424770d.jpg?x-oss-process=image/resize,m_pad,w_1082,h_1082"
+    },
+    {
+      "BRAND": "LAIFEN",
+      "SCF": "SCF-100.MINI(P)",
+      "MODEL": "LFN-MINI(P)",
+      "FULL NAME": "LAIFEN MINI",
+      "RCP": "RM699.00",
+      "MEMBER": "RM419.00",
+      "RM": "RM0",
+      "S-COIN": "41,900",
+      "REMARK": "Promo 1/1 - 5/1, 6/1 resume RM459",
+      "Date Extended to": "31/1/2025",
+      "IMAGE": "https://aihome.com.my/wp-content/uploads/2024/08/laifen-8.png"
+    },
+    {
+      "BRAND": "MIDEA",
+      "SCF": "SCF-100.C21RT103B",
+      "MODEL": "MID-C21RT103B",
+      "FULL NAME": "Midea INDUCTION COOKER",
+      "RCP": "RM209.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://storage.googleapis.com/kmlighting_ecommerce/images/hhxm14u9tm-Midea-Induction-cooker-C21-RT103B-04.jpg"
+    },
+    {
+      "BRAND": "MIDEA",
+      "SCF": "SCF-100.MFG150M0APB",
+      "MODEL": "MID-MFG150M0APB",
+      "FULL NAME": "Midea Table Circulation Fan",
+      "RCP": "RM135.00",
+      "MEMBER": "RM109.00",
+      "RM": "RM0",
+      "S-COIN": "10,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.homepro.com.my/ART_IMAGE/10/722/1072225/447x447/20022024_1072225$Imagex1.jpg"
+    },
+    {
+      "BRAND": "MASTERLINK",
+      "SCF": "SCF-100.4131ATB",
+      "MODEL": "MSL-4131ATB",
+      "FULL NAME": "MASTERLINK Screen Cleaning Kit",
+      "RCP": "RM119.00",
+      "MEMBER": "RM99.00",
+      "RM": "RM0",
+      "S-COIN": "9,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.pgmall.my/image/cache/catalog/seller_store/store19923/product/0845087001661011621productgroupimage019923-600x600.jpeg"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.ACE/VGRN18OZ",
+      "MODEL": "MTG-ACE/VGRN18OZ",
+      "FULL NAME": "MONTIGO VELVET ACE BOTTLE 18OZ ",
+      "RCP": "RM86.00",
+      "MEMBER": "RM84.00",
+      "RM": "RM0",
+      "S-COIN": "8,400",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://getmontigo.com/cdn/shop/files/Visual_1_top.jpg?v=1691990945&width=2000"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.ACE/VPINK18OZ",
+      "MODEL": "MTG-ACE/VPINK18OZ",
+      "FULL NAME": "MONTIGO VELVET ACE BOTTLE 18OZ ",
+      "RCP": "RM86.00",
+      "MEMBER": "RM84.00",
+      "RM": "RM0",
+      "S-COIN": "8,400",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://getmontigo.com/cdn/shop/files/Visual_1_top.jpg?v=1691990945&width=2000"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.ACE/VYELL18OZ",
+      "MODEL": "MTG-ACE/VYELL18OZ",
+      "FULL NAME": "MONTIGO VELVET ACE BOTTLE 18OZ ",
+      "RCP": "RM86.00",
+      "MEMBER": "RM84.00",
+      "RM": "RM0",
+      "S-COIN": "8,400",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://getmontigo.com/cdn/shop/files/Visual_1_top.jpg?v=1691990945&width=2000"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.ACE2/BLCR32OZ",
+      "MODEL": "MTG-ACE2/BLCR32OZ",
+      "FULL NAME": "Montigo ACE WATER BOTTLE 32OZ",
+      "RCP": "RM106.00",
+      "MEMBER": "RM104.00",
+      "RM": "RM0",
+      "S-COIN": "10,400",
+      "REMARK": "Stop 15.1.2025",
+      "Date Extended to": "15/01/25",
+      "IMAGE": "https://shopmontigo.com/cdn/shop/files/MTAce32ozdarkteal.png?v=1707299965&width=800"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.ACE2/BLK32OZ",
+      "MODEL": "MTG-ACE2/BLK32OZ",
+      "FULL NAME": "Montigo ACE WATER BOTTLE 32OZ ",
+      "RCP": "RM106.00",
+      "MEMBER": "RM104.00",
+      "RM": "RM0",
+      "S-COIN": "10,400",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shopmontigo.com/cdn/shop/files/MTAce32ozblack.png?v=1707299965&width=800"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.ACE2/LVR32OZ",
+      "MODEL": "MTG-ACE2/LVR32OZ",
+      "FULL NAME": "Montigo ACE WATER BOTTLE 32OZ ",
+      "RCP": "RM106.00",
+      "MEMBER": "RM104.00",
+      "RM": "RM0",
+      "S-COIN": "10,400",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shopmontigo.com/cdn/shop/files/AcemegaLavender.png?v=1713938068&width=800"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.ACE2/STGR32OZ",
+      "MODEL": "MTG-ACE2/STGR32OZ",
+      "FULL NAME": "Montigo ACE WATER BOTTLE 32OZ",
+      "RCP": "RM106.00",
+      "MEMBER": "RM104.00",
+      "RM": "RM0",
+      "S-COIN": "10,400",
+      "REMARK": "Stop 15.1.2025",
+      "Date Extended to": "15/01/25",
+      "IMAGE": "https://shopmontigo.com/cdn/shop/files/MTAce32ozStoneGrey.png?v=1707297316&width=800"
+    },
+    {
+      "BRAND": "MONTIGO",
+      "SCF": "SCF-100.KNIGHT2/STGR20OZ",
+      "MODEL": "MTG-KNIGHT2/STGR20OZ",
+      "FULL NAME": "Montigo KNIGHT TUMBER 20OZ",
+      "RCP": "RM86.00",
+      "MEMBER": "RM84.00",
+      "RM": "RM0",
+      "S-COIN": "8,400",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shopmontigo.com/cdn/shop/files/Knights_Stone_Grey.png?v=1721037133&width=800"
+    },
+    {
+      "BRAND": "OXWHITE",
+      "SCF": "SCF-100.CB1085OXBU",
+      "MODEL": "OXW-CB1085OXBU",
+      "FULL NAME": "OXWHITE TOWEL LYOCELL 27x52IN ,340G",
+      "RCP": "RM69.00",
+      "MEMBER": "RM69.00",
+      "RM": "RM0",
+      "S-COIN": "6,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://oxwhite.com/cdn/shop/products/PremiumBathTowel_White_05.jpg?v=1639325986"
+    },
+    {
+      "BRAND": "OXWHITE",
+      "SCF": "SCF-100.CB1085OXKH",
+      "MODEL": "OXW-CB1085OXKH",
+      "FULL NAME": "OXWHITE TOWEL LYOCELL 27x52IN ,340G",
+      "RCP": "RM69.00",
+      "MEMBER": "RM69.00",
+      "RM": "RM0",
+      "S-COIN": "6,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://oxwhite.com/cdn/shop/products/PremiumBathTowel_White_05.jpg?v=1639325986"
+    },
+    {
+      "BRAND": "OXWHITE",
+      "SCF": "SCF-100.CB1085OXPN",
+      "MODEL": "OXW-CB1085OXPN",
+      "FULL NAME": "OXWHITE TOWEL LYOCELL 27x52IN ,340G",
+      "RCP": "RM69.00",
+      "MEMBER": "RM69.00",
+      "RM": "RM0",
+      "S-COIN": "6,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://oxwhite.com/cdn/shop/products/PremiumBathTowel_White_05.jpg?v=1639325986"
+    },
+    {
+      "BRAND": "OXWHITE",
+      "SCF": "SCF-100.CB987OXKH",
+      "MODEL": "OXW-CB987OXKH",
+      "FULL NAME": "Oxwhite Towel .Heavy cotton .27in x 54in",
+      "RCP": "RM89.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://oxwhite.com/cdn/shop/products/Pastel-Bath-Towel.png?v=1672722869"
+    },
+    {
+      "BRAND": "OXWHITE",
+      "SCF": "SCF-100.CB987OXNB",
+      "MODEL": "OXW-CB987OXNB",
+      "FULL NAME": "Oxwhite Towel .Heavy cotton .27in x 54in",
+      "RCP": "RM89.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://oxwhite.com/cdn/shop/products/Pastel-Bath-Towel.png?v=1672722869"
+    },
+    {
+      "BRAND": "OXWHITE",
+      "SCF": "SCF-100.CB987OXWH",
+      "MODEL": "OXW-CB987OXWH",
+      "FULL NAME": "Oxwhite Towel .Heavy cotton .27in x 54in",
+      "RCP": "RM89.00",
+      "MEMBER": "RM89.00",
+      "RM": "RM0",
+      "S-COIN": "8,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://oxwhite.com/cdn/shop/products/Pastel-Bath-Towel.png?v=1672722869"
+    },
+    {
+      "BRAND": "OXWHITE",
+      "SCF": "SCF-100.CH987OXKH",
+      "MODEL": "OXW-CH987OXKH",
+      "FULL NAME": "Oxwhite 2in1 Face and Hand Towel. Heavy Cotton",
+      "RCP": "RM39.90",
+      "MEMBER": "RM39.90",
+      "RM": "RM0",
+      "S-COIN": "3,990",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://oxwhite.com/cdn/shop/products/2-in-1-Premium-Towel-_Face-_-Hand_grande.png?v=1641745141"
+    },
+    {
+      "BRAND": "PENSONIC",
+      "SCF": "SCF-100.PAK5002",
+      "MODEL": "PEN-PAK5002",
+      "FULL NAME": "Pensonic 4.2L ELECTRIC KETTLE",
+      "RCP": "RM131.00",
+      "MEMBER": "RM121.00",
+      "RM": "RM0",
+      "S-COIN": "12,100",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.uelectric.com.my/1964/pensonic-kettle-pak5002.jpg"
+    },
+    {
+      "BRAND": "PENSONIC",
+      "SCF": "SCF-100.PB3303M",
+      "MODEL": "PEN-PB3303M",
+      "FULL NAME": "Pensonic 1L JAR BLENDER",
+      "RCP": "RM99.00",
+      "MEMBER": "RM85.00",
+      "RM": "RM0",
+      "S-COIN": "8,500",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.luluhypermarket.com/cdn-cgi/image/f=auto/medias/1200Wx1200H-null?context=bWFzdGVyfGltYWdlc3w5NDE5NHxpbWFnZS9qcGVnfGFHWXdMMmcwTmk4eE56STBPREkxTnpZM01URTVPQzh4TWpBd1YzZ3hNakF3U0Y5dWRXeHN8OGZlN2M1ZjJiZWU2Y2Y0ZGMyN2I4ZDhhYWIyZDBiMmU1ZmMzMTU5OTJmNTg5NGI0NDQ4MGEzYWJjZjE3MmU3NQ"
+    },
+    {
+      "BRAND": "PENSONIC",
+      "SCF": "SCF-100.PF4105",
+      "MODEL": "PEN-PF4105",
+      "FULL NAME": "Pensonic 16'' TABLE FAN ",
+      "RCP": "RM121.00",
+      "MEMBER": "RM104.00",
+      "RM": "RM0",
+      "S-COIN": "10,400",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.pensonic.com/wp-content/uploads/2024/05/pensonic-table-fan-16-pf-4105-1.jpg"
+    },
+    {
+      "BRAND": "PENSONIC",
+      "SCF": "SCF-100.PSF4505GY",
+      "MODEL": "PEN-PSF4505GY",
+      "FULL NAME": "Pensonic STAND FAN",
+      "RCP": "RM147.00",
+      "MEMBER": "RM122.00",
+      "RM": "RM0",
+      "S-COIN": "12,200",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.banhuat.com/image/cache/catalog/products/STAND%20FAN/PENSONIC/PSF4505GY/PSF4505GY-T1-1000x1000.jpg"
+    },
+    {
+      "BRAND": "COLGATE",
+      "SCF": "SCF-100.COLGATE.ZZMD",
+      "MODEL": "PG-COLGATE.ZZMD",
+      "FULL NAME": "COLGATE ZIG ZAG TOOTHBRUSH 5S",
+      "RCP": "RM14.40",
+      "MEMBER": "RM14.40",
+      "RM": "RM0",
+      "S-COIN": "1,440",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://sg-test-11.slatic.net/p/c2e3f46fc56762a1ad7d97121f1c4077.jpg"
+    },
+    {
+      "BRAND": "COLGATE",
+      "SCF": "SCF-100.COLGATE_ZZ-CHAR",
+      "MODEL": "PG-COLGATE_ZZ-CHAR",
+      "FULL NAME": "COLGATE ZIG ZAG CHARCOAL",
+      "RCP": "RM15.50",
+      "MEMBER": "RM15.50",
+      "RM": "RM0",
+      "S-COIN": "1,550",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://crm.sunshineonline.com.my/crmfileshare01/image/sunshine/cache/product/129279_21042024152719-800x800.jpg"
+    },
+    {
+      "BRAND": "COLGATE",
+      "SCF": "SCF-100.COLGATE175TP_GRF",
+      "MODEL": "PG-COLGATE175TP_GRF",
+      "FULL NAME": "COLGATE TWINPACK GREAT RE FLAVOUR",
+      "RCP": "RM16.90",
+      "MEMBER": "RM16.90",
+      "RM": "RM0",
+      "S-COIN": "1,690",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn1.sgliteasset.com/picknpay/images/product/product-2578385/UgPyi4Os63d31c120fd64_1674779666.jpg"
+    },
+    {
+      "BRAND": "DARLIE",
+      "SCF": "SCF-100.DARLIE175MD",
+      "MODEL": "PG-DARLIE175MD",
+      "FULL NAME": "Darlie 175g",
+      "RCP": "RM9.90",
+      "MEMBER": "RM9.90",
+      "RM": "RM0",
+      "S-COIN": "990",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://images.deliveryhero.io/image/darkstores-my/HAWLEY%20and%20HAZEL/Packshots%20Aug%202022/4891338000079.jpg?height=480"
+    },
+    {
+      "BRAND": "DYNAMO",
+      "SCF": "SCF-100.DYNAMO.1.44KGMD",
+      "MODEL": "PG-DYNAMO.1.44KGMD",
+      "FULL NAME": "DYNAMO REFILL 1.44KG",
+      "RCP": "RM18.50",
+      "MEMBER": "RM18.50",
+      "RM": "RM0",
+      "S-COIN": "1,850",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://crm.sunshineonline.com.my/crmfileshare01/image/sunshine/cache/product/28813781-550x550.jpg"
+    },
+    {
+      "BRAND": "FEBREEZE",
+      "SCF": "SCF-100.FEBREEZE_AB_370",
+      "MODEL": "PG-FEBREEZE_AB_370",
+      "FULL NAME": "FEBREEZE  370ML ANTI BACTERIA",
+      "RCP": "RM11.90",
+      "MEMBER": "RM11.90",
+      "RM": "RM0",
+      "S-COIN": "1,190",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.zuppa.com.my/zuppamarket/wp-content/uploads/Febreze-with-Ambi-Pur-Antibacteria-370ml.jpg"
+    },
+    {
+      "BRAND": "GLADE",
+      "SCF": "SCF-100.GLADELEMON_T/P_MD",
+      "MODEL": "PG-GLADELEMON_T/P_MD",
+      "FULL NAME": "Glade Scent Gel TwinPack Lemon",
+      "RCP": "RM18.00",
+      "MEMBER": "RM18.00",
+      "RM": "RM0",
+      "S-COIN": "1,800",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shophygiene.com.ph/cdn/shop/files/GladeScentedGel-LemonTwin_180gx2_ad62aeee-c7d7-4fe1-bee2-1a3a44fa8996.jpg?v=1728520113&width=1946"
+    },
+    {
+      "BRAND": "GLADE",
+      "SCF": "SCF-100.GLADETP_LAV",
+      "MODEL": "PG-GLADETP_LAV",
+      "FULL NAME": "GLADE SCENT GEL TWINPACK LAVENDAR",
+      "RCP": "RM18.50",
+      "MEMBER": "RM18.50",
+      "RM": "RM0",
+      "S-COIN": "1,850",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.luluhypermarket.com/cdn-cgi/image/f=auto/medias/382149-02.jpg-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxOTIwOTd8aW1hZ2UvanBlZ3xhR0UwTDJnNU5TOHhNVFExTWpZM05EZ3dNVFk1TkM4ek9ESXhORGt0TURJdWFuQm5YekV5TURCWGVERXlNREJJfDhmODYzMDlmNGFmZWQzMTEzMjY2MTBiN2E0Y2E3MmZjZjA5MWZkNTdlZGE1ZWFhZTgxM2I3MjM1OGEzODU1YTY"
+    },
+    {
+      "BRAND": "GLO",
+      "SCF": "SCF-100.GLO800ML_LEMON",
+      "MODEL": "PG-GLO800ML_LEMON",
+      "FULL NAME": "GLo 800ML Lemon",
+      "RCP": "RM4.50",
+      "MEMBER": "RM4.50",
+      "RM": "RM0",
+      "S-COIN": "450",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://klec.jayagrocer.com/cdn/shop/files/011531-1-1_61239e20-d76c-46a3-8431-e7393648bfda.jpg?v=1735819402"
+    },
+    {
+      "BRAND": "GLO",
+      "SCF": "SCF-100.GLO800ML_LIME_MD",
+      "MODEL": "PG-GLO800ML_LIME_MD",
+      "FULL NAME": "GLO LIME 800ML",
+      "RCP": "RM5.70",
+      "MEMBER": "RM5.70",
+      "RM": "RM0",
+      "S-COIN": "570",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://guardian.com.my/media/catalog/product/9/5/9556031090059.jpg?auto=webp&format=pjpg&width=640&fit=cover"
+    },
+    {
+      "BRAND": "HOMESOY",
+      "SCF": "SCF-100.HOMESOY.1L",
+      "MODEL": "PG-HOMESOY.1L",
+      "FULL NAME": "HOMESOY SOYA MILK 1L DRINK",
+      "RCP": "RM3.50",
+      "MEMBER": "RM3.50",
+      "RM": "RM0",
+      "S-COIN": "350",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://jgut.jayagrocer.com/cdn/shop/files/008137-1-1_7a0d5d8d-1582-46d4-8e81-aaecd097c4c4_1200x.jpg?v=1726146207"
+    },
+    {
+      "BRAND": "MR. MUSCLE",
+      "SCF": "SCF-100.MR.MF.C1LMD",
+      "MODEL": "PG-MR.MF.C1LMD",
+      "FULL NAME": "Mr.Muscle Floor Cleaner 1L",
+      "RCP": "RM8.60",
+      "MEMBER": "RM8.60",
+      "RM": "RM0",
+      "S-COIN": "860",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://assets.myboxed.com.my/1680212165434.jpg"
+    },
+    {
+      "BRAND": "MR. MUSCLE",
+      "SCF": "SCF-100.MRMUSLE_CITRUS",
+      "MODEL": "PG-MRMUSLE_CITRUS",
+      "FULL NAME": "MR MUSCLE TOILET CLEANER CIT",
+      "RCP": "RM8.00",
+      "MEMBER": "RM8.00",
+      "RM": "RM0",
+      "S-COIN": "800",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn.homepro.com.my/ART_IMAGE/10/340/1034091/447x447/29072024_1034091$Imagex1.jpg"
+    },
+    {
+      "BRAND": "MR. MUSCLE",
+      "SCF": "SCF-100.MRMUSLE_MAR",
+      "MODEL": "PG-MRMUSLE_MAR",
+      "FULL NAME": "MR MUSLE MARINE",
+      "RCP": "RM8.00",
+      "MEMBER": "RM8.00",
+      "RM": "RM0",
+      "S-COIN": "800",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.mycs.com.my/media/catalog/product/cache/309b0699a74d76e0528e3f5ac801b2c4/m/r/mr_muscle_deep_action_gel_toilet_cleaner_marine_2x500ml_side.png"
+    },
+    {
+      "BRAND": "MR. MUSCLE",
+      "SCF": "SCF-100.MRMUSLE_PINE",
+      "MODEL": "PG-MRMUSLE_PINE",
+      "FULL NAME": "MR MUSLE PINE",
+      "RCP": "RM8.00",
+      "MEMBER": "RM8.00",
+      "RM": "RM0",
+      "S-COIN": "800",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134201-7rase-m3u8ek77iruk61"
+    },
+    {
+      "BRAND": "PREMIER",
+      "SCF": "SCF-100.PREMIER.PTMD",
+      "MODEL": "PG-PREMIER.PTMD",
+      "FULL NAME": "PREMIER POCKET TISSUE",
+      "RCP": "RM3.30",
+      "MEMBER": "RM3.30",
+      "RM": "RM0",
+      "S-COIN": "330",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.luluhypermarket.com/cdn-cgi/image/f=auto/medias/515064-01.jpg-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wyMzgyOTZ8aW1hZ2UvanBlZ3xhRE5sTDJnME9TODVPVEl6TURVd016UXdNemd5THpVeE5UQTJOQzB3TVM1cWNHZGZNVEl3TUZkNE1USXdNRWd8MzA1YjZhNjEwYjA1ODNmMmY3Mzg0OGYwNzQxMWI2Y2JjOGQ3YzNmOWU2N2Y1ZmZjMTU2OTI5YWYyOWIyNzNlNA"
+    },
+    {
+      "BRAND": "PREMIER",
+      "SCF": "SCF-100.PRMBOX5x90_MD",
+      "MODEL": "PG-PRMBOX5x90_MD",
+      "FULL NAME": "Premier Tissue 90s x 5",
+      "RCP": "RM11.50",
+      "MEMBER": "RM11.50",
+      "RM": "RM0",
+      "S-COIN": "1,150",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn1.npcdn.net/images/1662618377476aadd143f568d951a99b56fa0cd71a.png?md5id=9403726f748a529821f7df4779ea9578&new_width=1000&new_height=1000&w=1674980306"
+    },
+    {
+      "BRAND": "PREMIER",
+      "SCF": "SCF-100.PRMTISSUE4x100s",
+      "MODEL": "PG-PRMTISSUE4x100s",
+      "FULL NAME": "Premier Tissue Box 4x100s",
+      "RCP": "RM8.10",
+      "MEMBER": "RM8.10",
+      "RM": "RM0",
+      "S-COIN": "810",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7rasg-m0obdxtsyfbvb9"
+    },
+    {
+      "BRAND": "RIBENA",
+      "SCF": "SCF-100.RIBENA300MD",
+      "MODEL": "PG-RIBENA300MD",
+      "FULL NAME": "Ribena Blackcurrant (300ml)",
+      "RCP": "RM2.60",
+      "MEMBER": "RM2.60",
+      "RM": "RM0",
+      "S-COIN": "260",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7r991-ltkq1vrc2s5w7d"
+    },
+    {
+      "BRAND": "SCOTCH BRITE",
+      "SCF": "SCF-100.SB5+1MD",
+      "MODEL": "PG-SB5+1MD",
+      "FULL NAME": "Scotch Brite 4+1 kitchen sponge",
+      "RCP": "RM9.10",
+      "MEMBER": "RM9.10",
+      "RM": "RM0",
+      "S-COIN": "910",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/df9c6d70e531e7b383831cd716853b4b"
+    },
+    {
+      "BRAND": "SCOTT",
+      "SCF": "SCF-100.SCOTT_EXTRA",
+      "MODEL": "PG-SCOTT_EXTRA",
+      "FULL NAME": "SCOTT EXTRA BT REGULAR",
+      "RCP": "RM16.50",
+      "MEMBER": "RM16.50",
+      "RM": "RM0",
+      "S-COIN": "1,650",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://qrafoods.com/pub/media/catalog/product/cache/9de5ed1e9d3f8f9d1bdcffdb908bd0f3/_/1/_1_2_121823_1-scott-extra-regular-bt-2ply-180s-20rolls.png"
+    },
+    {
+      "BRAND": "SOFTLAN",
+      "SCF": "SCF-100.SOFTLAN1.6L_FLO",
+      "MODEL": "PG-SOFTLAN1.6L_FLO",
+      "FULL NAME": "SOFTLAN 1.6 FLORAL FANTASY",
+      "RCP": "RM7.90",
+      "MEMBER": "RM7.90",
+      "RM": "RM0",
+      "S-COIN": "790",
+      "REMARK": "Start 1/1/25, While stock last",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-my.img.susercontent.com/file/my-11134207-7r98s-lnwwqkz0gmgs05"
+    },
+    {
+      "BRAND": "PHILIPS",
+      "SCF": "SCF-100.BHH822",
+      "MODEL": "PLP-BHH822",
+      "FULL NAME": "Philips HAIR STYLER",
+      "RCP": "RM289.00",
+      "MEMBER": "RM279.00",
+      "RM": "RM0",
+      "S-COIN": "27,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://images.philips.com/is/image/philipsconsumer/6444d798ae774f70b869ae770140251c?$pnglarge$&wid=1250"
+    },
+    {
+      "BRAND": "PHILIPS",
+      "SCF": "SCF-100.CHP4742WA/68",
+      "MODEL": "PLP-CHP4742WA/68",
+      "FULL NAME": "Philips 4Gang with 2 USB A and 2 USB C charger",
+      "RCP": "RM149.00",
+      "MEMBER": "RM142.00",
+      "RM": "RM0",
+      "S-COIN": "14,200",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/f53224b93fcf10515b78ac3fc50e3ce8.jpg"
+    },
+    {
+      "BRAND": "PHILIPS",
+      "SCF": "SCF-100.HD3008",
+      "MODEL": "PLP-HD3008",
+      "FULL NAME": "Philips 1.8L Rice Cooker",
+      "RCP": "RM199.00",
+      "MEMBER": "RM169.00",
+      "RM": "RM0",
+      "S-COIN": "16,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://images.philips.com/is/image/philipsconsumer/vrs_6018c6cc376f154b800d40e86fd6e534dc758624?$pnglarge$&wid=1250"
+    },
+    {
+      "BRAND": "PHILIPS",
+      "SCF": "SCF-100.HD3064/62",
+      "MODEL": "PLP-HD3064/62",
+      "FULL NAME": "Philips 0.54Lit RICE COOKER",
+      "RCP": "RM289.00",
+      "MEMBER": "RM229.00",
+      "RM": "RM0",
+      "S-COIN": "22,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.snfonline.com.my/cdn/shop/files/p2eYaWLp6537463d033e6_1698121277_800x.jpg?v=1708412069"
+    },
+    {
+      "BRAND": "PHILIPS",
+      "SCF": "SCF-100.HD9303/03",
+      "MODEL": "PLP-HD9303/03",
+      "FULL NAME": "Philips 1.2L JUG KETTLE- STAINLESS STEEL",
+      "RCP": "RM127.00",
+      "MEMBER": "RM95.00",
+      "RM": "RM0",
+      "S-COIN": "9,500",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.esh2u.com/cdn/shop/files/4_e052c174-36f0-4c51-bfa9-a99c15b8d5c2_460x@2x.png?v=1725519966"
+    },
+    {
+      "BRAND": "PHILIPS",
+      "SCF": "SCF-100.STH3010/30",
+      "MODEL": "PLP-STH3010/30",
+      "FULL NAME": "Philips HANDHELD STEAMER",
+      "RCP": "RM209.00",
+      "MEMBER": "RM189.00",
+      "RM": "RM0",
+      "S-COIN": "18,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://images.philips.com/is/image/philipsconsumer/vrs_1beb79beafcb7647ecff17cda1195d51e686c9e5?$pnglarge$&wid=960"
+    },
+    {
+      "BRAND": "PANASONIC",
+      "SCF": "SCF-100.DLAR15DWM",
+      "MODEL": "PSN-DLAR15DWM",
+      "FULL NAME": "Panasonic Smart Bidet",
+      "RCP": "RM469.00",
+      "MEMBER": "RM449.00",
+      "RM": "RM0",
+      "S-COIN": "44,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.banhuat.com/image/cache/catalog/products/bidet/PANASONIC/DLAR15DWM/DLAR15DWM-T1-1000x1000.jpg"
+    },
+    {
+      "BRAND": "PANZERGLASS",
+      "SCF": "SCF-100.1137",
+      "MODEL": "PZR-1137",
+      "FULL NAME": "PanzerGlass Camera Protector Apple iPhone 2023 6.1\" Pro/6.7\" Pro",
+      "RCP": "RM79.00",
+      "MEMBER": "RM79.00",
+      "RM": "RM0",
+      "S-COIN": "7,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://m.media-amazon.com/images/I/61fIa23Va+L.jpg"
+    },
+    {
+      "BRAND": "PANZERGLASS",
+      "SCF": "SCF-100.2810",
+      "MODEL": "PZR-2810",
+      "FULL NAME": "PanzerGlass Apple iPhone 2023 6.1\" Pro UWF",
+      "RCP": "RM159.00",
+      "MEMBER": "RM159.00",
+      "RM": "RM0",
+      "S-COIN": "15,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.machines.com.my/cdn/shop/files/2810_02_c680e242-69e8-4b77-8ad6-bcdc05c41ee5.webp?v=1715669530&width=823"
+    },
+    {
+      "BRAND": "PANZERGLASS",
+      "SCF": "SCF-100.2812",
+      "MODEL": "PZR-2812",
+      "FULL NAME": "PanzerGlass Apple iPhone 2023 6.7\" Pro UWF",
+      "RCP": "RM159.00",
+      "MEMBER": "RM159.00",
+      "RM": "RM0",
+      "S-COIN": "15,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://m.media-amazon.com/images/I/71BHBIvQo+L.jpg"
+    },
+    {
+      "BRAND": "PANZERGLASS",
+      "SCF": "SCF-100.P2810",
+      "MODEL": "PZR-P2810",
+      "FULL NAME": "PanzerGlass Apple iPhone 2023 6.1\" Pro UWF Privacy",
+      "RCP": "RM159.00",
+      "MEMBER": "RM159.00",
+      "RM": "RM0",
+      "S-COIN": "15,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://mastershop.com.au/cdn/shop/files/panzerglass-ultrawide-screen-privacy-guard-iphone-16-clear-2_1024x1024.jpg?v=1726718573"
+    },
+    {
+      "BRAND": "PANZERGLASS",
+      "SCF": "SCF-100.P2812",
+      "MODEL": "PZR-P2812",
+      "FULL NAME": "PanzerGlass Apple iPhone 2023 6.7\" Pro UWF Privacy",
+      "RCP": "RM159.00",
+      "MEMBER": "RM159.00",
+      "RM": "RM0",
+      "S-COIN": "15,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://m.media-amazon.com/images/I/71KGmoxxCIL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+      "BRAND": "PANZERGLASS",
+      "SCF": "SCF-100.SAFE95587",
+      "MODEL": "PZR-SAFE95587",
+      "FULL NAME": "SAFE Apple iPhone 2023 6.1\" Pro UWF",
+      "RCP": "RM79.00",
+      "MEMBER": "RM79.00",
+      "RM": "RM0",
+      "S-COIN": "7,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://panzerglass.com/cdn/shop/files/safe95148_02.jpg?v=1730283970"
+    },
+    {
+      "BRAND": "PANZERGLASS",
+      "SCF": "SCF-100.SAFE95589",
+      "MODEL": "PZR-SAFE95589",
+      "FULL NAME": "SAFE Apple iPhone 2023 6.7\" Pro UWF",
+      "RCP": "RM79.00",
+      "MEMBER": "RM79.00",
+      "RM": "RM0",
+      "S-COIN": "7,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://img.grooves.land/images/icecatdaten/955/372/5711724955372Med2.jpg"
+    },
+    {
+      "BRAND": "RHEEM",
+      "SCF": "SCF-100.RH188",
+      "MODEL": "RHM-RH188",
+      "FULL NAME": "Rheem WATER HEATER",
+      "RCP": "RM449.00",
+      "MEMBER": "RM399.00",
+      "RM": "RM0",
+      "S-COIN": "39,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/52855a3ee2f96c47a616321e22a03414.jpg"
+    },
+    {
+      "BRAND": "RIVERSONG",
+      "SCF": "SCF-100.MAGNANO05",
+      "MODEL": "RIV-MAGNANO05",
+      "FULL NAME": "Magnano 05 - Magnetic Wireless Power Bank 5000mAh",
+      "RCP": "RM129.00",
+      "MEMBER": "RM129.00",
+      "RM": "RM0",
+      "S-COIN": "12,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://img.lazcdn.com/g/p/45092f8a877f53fe17910f32e97c4097.jpg_720x720q80.jpg"
+    },
+    {
+      "BRAND": "RIVERSONG",
+      "SCF": "SCF-100.MAGSPEED10PRO",
+      "MODEL": "RIV-MAGSPEED10PRO",
+      "FULL NAME": "Riversong MagSpeed 10 Pro 10W Wireless Charge",
+      "RCP": "RM259.00",
+      "MEMBER": "RM259.00",
+      "RM": "RM0",
+      "S-COIN": "25,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/92daaec954b7caa7dcece20d94bef01e.jpg"
+    },
+    {
+      "BRAND": "RIVERSONG",
+      "SCF": "SCF-100.KUB-G100",
+      "MODEL": "RIV-POWERKUB-G100",
+      "FULL NAME": "Riversong PowerKub G100",
+      "RCP": "RM269.00",
+      "MEMBER": "RM269.00",
+      "RM": "RM0",
+      "S-COIN": "26,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/c932a0b89afa1e50c33978517415a1ec.jpg"
+    },
+    {
+      "BRAND": "RUSSELL TAYLOR",
+      "SCF": "SCF-100.T3",
+      "MODEL": "RST-T3",
+      "FULL NAME": "Russell Taylors Digital Bread Toaster",
+      "RCP": "RM179.00",
+      "MEMBER": "RM149.00",
+      "RM": "RM0",
+      "S-COIN": "14,900",
+      "REMARK": "Extended till 31.01.2025 for Clear Stock",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.russelltaylors.co.uk/cdn/shop/files/T3.png?v=1709177541"
+    },
+    {
+      "BRAND": "SAMSUNG",
+      "SCF": "SCF-100.HWLS60D",
+      "MODEL": "SAM-HWLS60D",
+      "FULL NAME": "SAMSUNG DOLBY ATMOS MUSIC FRAME",
+      "RCP": "RM1,999.00",
+      "MEMBER": "RM1,499.00",
+      "RM": "RM0",
+      "S-COIN": "149,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://images.samsung.com/is/image/samsung/p6pim/my/hw-ls60d-xm/gallery/my-music-frame-hw-ls60d-hw-ls60d-xm-540579391?$684_547_PNG$"
+    },
+    {
+      "BRAND": "SONY",
+      "SCF": "SCF-100.WFC510",
+      "MODEL": "SNY-WFC510",
+      "FULL NAME": "Sony Wireless Earbuds",
+      "RCP": "RM299.00",
+      "MEMBER": "RM299.00",
+      "RM": "RM0",
+      "S-COIN": "29,900",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://store.sony.com.my/cdn/shop/files/Black_3_1200x.png?v=1725875367"
+    },
+    {
+      "BRAND": "SONY",
+      "SCF": "SCF-100.WHCH520",
+      "MODEL": "SNY-WHCH520",
+      "FULL NAME": "Sony Wireless Headphones",
+      "RCP": "RM229.00",
+      "MEMBER": "RM229.00",
+      "RM": "RM0",
+      "S-COIN": "22,900",
+      "REMARK": "Start 3/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://d1ncau8tqf99kp.cloudfront.net/converted/110590_original_local_504x441_v3_converted.webp"
+    },
+    {
+      "BRAND": "STRYV",
+      "SCF": "SCF-100.SVMISVZ4",
+      "MODEL": "STR-SVMISVZ4",
+      "FULL NAME": "STRYV Mini Shaver",
+      "RCP": "RM159.00",
+      "MEMBER": "RM156.00",
+      "RM": "RM0",
+      "S-COIN": "15,600",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.gaincity.com/media/catalog/product/cache/6c6c50d4c233a553cee4f0d7353c6a74/b/l/blank_16__1.png"
+    },
+    {
+      "BRAND": "STRYV",
+      "SCF": "SCF-100.SVMSBDO2",
+      "MODEL": "STR-SVMSBDO2",
+      "FULL NAME": "STRYV Multishave Trimmer",
+      "RCP": "RM159.00",
+      "MEMBER": "RM156.00",
+      "RM": "RM0",
+      "S-COIN": "15,600",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.oneshop.com.my/images/simple_products/SVMSBDO2-01-1.png"
+    },
+    {
+      "BRAND": "STRYV",
+      "SCF": "SCF-100.SVPSRBS9",
+      "MODEL": "STR-SVPSRBS9",
+      "FULL NAME": "STRYV Shaver",
+      "RCP": "RM169.00",
+      "MEMBER": "RM166.00",
+      "RM": "RM0",
+      "S-COIN": "16,600",
+      "REMARK": "Start 1/1/25",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://www.courts.com.sg/media/catalog/product/i/p/ip195682_00.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=770&width=770&canvas=770:770"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.BL2B41",
+      "MODEL": "TEF-BL2B41",
+      "FULL NAME": "Tefal 2 JAR BLENDER",
+      "RCP": "RM219.00",
+      "MEMBER": "RM169.00",
+      "RM": "RM0",
+      "S-COIN": "16,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shop.tbm.com.my/cdn/shop/products/tefal-blender-bl2b41-tbm-your-neighbourhood-electrical-store-567827.jpg?v=1687937814&width=720"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.DT2020",
+      "MODEL": "TEF-DT2020",
+      "FULL NAME": "Tefal PUREPOP HANDHELD GARMENT STEAMER",
+      "RCP": "RM209.00",
+      "MEMBER": "RM199.00",
+      "RM": "RM0",
+      "S-COIN": "19,900",
+      "REMARK": "Extended till 31.01.2025 for Clear Stock",
+      "Date Extended to": "31/12/2024",
+      "IMAGE": "https://twicpics.tefal.com.my/https://dam.groupeseb.com/m/2739f32c6c00d5e5/original/TF_DT2020E1_POP_H1.png?timestamp=20240617103134?twic=v1"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.FV5847",
+      "MODEL": "TEF-FV5847",
+      "FULL NAME": "Tefal Steam Iron",
+      "RCP": "RM299.00",
+      "MEMBER": "RM183.00",
+      "RM": "RM0",
+      "S-COIN": "18,300",
+      "REMARK": "Promo 1/1 - 5/1, 6/1 resume RM199",
+      "Date Extended to": "31/12/2024",
+      "IMAGE": "https://twicpics.mcstaging2.tefal.com.my/https://www.mcstaging2.tefal.com.my/media/catalog/product/3/1/318cd5a5-b8a1-46ba-9d328f4afe7e5936_f1.jpg?twic=v1/contain=740x496"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.G14398",
+      "MODEL": "TEF-G14398",
+      "FULL NAME": "Tefal DAY BY DAY WOKPAN 32CM W/LID",
+      "RCP": "RM239.00",
+      "MEMBER": "RM129.00",
+      "RM": "RM0",
+      "S-COIN": "12,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://cdn1.sgliteasset.com/dteecomm/images/pgmall/pgmall-215117/MLLGl9wa638d5496af9c7_1670206614_1711004588.jpg"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.G179S4",
+      "MODEL": "TEF-G179S4",
+      "FULL NAME": "Tefal SO MATCHA 4-PC SET",
+      "RCP": "RM529.00",
+      "MEMBER": "RM259.00",
+      "RM": "RM0",
+      "S-COIN": "25,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://shop.tbm.com.my/cdn/shop/products/tefal-cookware-g179s4-tbm-online-497464.jpg?v=1710866845"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.IT2440",
+      "MODEL": "TEF-IT2440",
+      "FULL NAME": "Tefal STAND GARMENT STEAMER",
+      "RCP": "RM299.00",
+      "MEMBER": "RM229.00",
+      "RM": "RM0",
+      "S-COIN": "22,900",
+      "REMARK": "Extended till 31.01.2025 for Clear Stock",
+      "Date Extended to": "31/12/2024",
+      "IMAGE": "https://shop.tbm.com.my/cdn/shop/products/tefal-garment-steamer-it2440-tbm-online-473399.jpg?v=1708009594&width=720"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.KITCHENWARE5PCS",
+      "MODEL": "TEF-KITCHENWARE5PCS",
+      "FULL NAME": "Tefal Kitchenware 5 Pcs Set",
+      "RCP": "RM159.00",
+      "MEMBER": "RM99.00",
+      "RM": "RM0",
+      "S-COIN": "9,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://twicpics.tefal.com.my/https://dam.groupeseb.com/m/24316505a4ff34c1/original/Tefal-Kitchenware-5pc-Set-Lifestyle-1.png?timestamp=20230830115618?twic=v1"
+    },
+    {
+      "BRAND": "TEFAL",
+      "SCF": "SCF-100.RK736B",
+      "MODEL": "TEF-RK736B",
+      "FULL NAME": "Tefal 1.8L JAR RICE COOKER",
+      "RCP": "RM449.00",
+      "MEMBER": "RM299.00",
+      "RM": "RM0",
+      "S-COIN": "29,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://down-ph.img.susercontent.com/file/ph-11134207-7qul4-lg2ealpyjddk05"
+    },
+    {
+      "BRAND": "TESVOR",
+      "SCF": "SCF-100.A1",
+      "MODEL": "TES-A1",
+      "FULL NAME": "Tesvor ROBOTIC WITH MOP",
+      "RCP": "RM1,299.00",
+      "MEMBER": "RM879.00",
+      "RM": "RM0",
+      "S-COIN": "87,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://laz-img-sg.alicdn.com/p/87e7c81c390c226e55d453cb02ef6c0f.jpg"
+    },
+    {
+      "BRAND": "TESVOR",
+      "SCF": "SCF-100.X500PRO",
+      "MODEL": "TES-X500PRO",
+      "FULL NAME": "Tesvor ROBOTIC WITH MOP",
+      "RCP": "RM1,499.00",
+      "MEMBER": "RM1,049.00",
+      "RM": "RM0",
+      "S-COIN": "104,900",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/6/2025",
+      "IMAGE": "https://d11t13tut0ry2c.cloudfront.net/catalog/product/cache/d6ccdf4274bed0197f9e62d88ddefc59/x/5/x500pro.jpg"
+    },
+    {
+      "BRAND": "THULE",
+      "SCF": "SCF-TACTWP05/BLK",
+      "MODEL": "THU-TACTWP05/BLK",
+      "FULL NAME": "THULE TACT WAISTPACK 5L-BLACK",
+      "RCP": "RM499.00",
+      "MEMBER": "RM499.00",
+      "RM": "RM0",
+      "S-COIN": "49,900",
+      "REMARK": "Start 1/1/25",
+      "IMAGE": "https://thulestore.co.za/media/catalog/product/cache/bc8d4a9cda37b5950f32612a4b53bdb5/b/0/b0c93f1d08cd050b67b456b354a9a9fa.jpg"
+    },
+    {
+      "BRAND": "BASKIN ROBBIN",
+      "SCF": "SCF-SCRC-BASKIN.KING",
+      "MODEL": "VOU-SCRC-BASKIN.KING",
+      "FULL NAME": "Baskin Robbin Single King Scoop",
+      "RCP": "RM15.50",
+      "MEMBER": "RM15.50",
+      "RM": "RM0",
+      "S-COIN": "1,550",
+      "REMARK": "until 31.01.2025",
+      "Date Extended to": "30/4/2025",
+      "IMAGE": "https://my-test-11.slatic.net/p/37f6b90429bbba17b8bf6b2ba48a17d5.jpg"
+    },
+    {
+      "BRAND": "BASKIN ROBBIN",
+      "SCF": "SCF-SCRC-BASKIN.R",
+      "MODEL": "VOU-SCRC-BASKIN.R",
+      "FULL NAME": "Baskin Robbin Single Regular Scoop",
+      "RCP": "RM12.50",
+      "MEMBER": "RM12.50",
+      "RM": "RM0",
+      "S-COIN": "1,250",
+      "REMARK": "untill 25.05.2025",
+      "Date Extended to": "30/4/2025",
+      "IMAGE": "https://rewards.affinbank.com.my/affinrewards/catalog/image/10513"
+    }
+      ]
+    };
+  </script>
+</body>
+</html>
