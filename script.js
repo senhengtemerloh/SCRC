@@ -65,12 +65,9 @@ function populateProducts(products) {
     const pricing = document.createElement("div");
     pricing.className = "pricing";
 
-    // Format RCP and Member Price
-    let rcp = product.RCP;
-    let memberPrice = product.MEMBER;
-
-    const formattedRCP = (typeof rcp === "number" || !isNaN(Number(rcp))) ? `RM${Number(rcp).toFixed(2)}` : "N/A";
-    const formattedMemberPrice = (typeof memberPrice === "number" || !isNaN(Number(memberPrice))) ? `RM${Number(memberPrice).toFixed(2)}` : "N/A";
+    // Safely format RCP and Member Price
+    const formattedRCP = product.RCP ? `RM${parseFloat(product.RCP).toFixed(2)}` : "N/A";
+    const formattedMemberPrice = product.MEMBER ? `RM${parseFloat(product.MEMBER).toFixed(2)}` : "N/A";
 
     pricing.innerText = `RCP: ${formattedRCP} | Member Price: ${formattedMemberPrice}`;
     productBox.appendChild(pricing);
