@@ -1,0 +1,81 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+body {
+  margin: 20px;
+  background-color: #f0f0f0;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Product Grid Styles */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.product-box {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.image-container {
+  width: 100%;
+  position: relative;
+  padding-top: 100%;
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.image-container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.full-name {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.scf-code {
+  font-size: 0.85rem;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+.pricing {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+.promo-price {
+  background-color: #C00000;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.remark {
+  font-size: 0.7rem;
+  color: #666;
+  text-align: center;
+}
