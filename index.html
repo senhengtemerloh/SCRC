@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Catalogue (100%)</title>
+  <title>Catalogue (100% Sheet)</title>
   <style>
-    /* Basic reset & font setup */
+    /* Same CSS for styling */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -19,7 +19,6 @@
       text-align: center;
       margin-bottom: 20px;
     }
-
     .product-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -27,7 +26,6 @@
       max-width: 1200px;
       margin: 0 auto;
     }
-
     .product-box {
       background-color: #fff;
       border: 1px solid #ddd;
@@ -38,7 +36,6 @@
       flex-direction: column;
       justify-content: space-between;
     }
-
     .image-container {
       width: 100%;
       position: relative;
@@ -48,7 +45,6 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-
     .image-container img {
       position: absolute;
       top: 50%;
@@ -58,25 +54,21 @@
       max-height: 100%;
       object-fit: contain;
     }
-
     .full-name {
       font-size: 1rem;
       font-weight: bold;
       margin-bottom: 5px;
     }
-
     .scf-code {
       font-size: 0.85rem;
       color: #007bff;
       margin-bottom: 5px;
     }
-
     .pricing {
       font-size: 0.85rem;
       color: #666;
       margin-bottom: 10px;
     }
-
     .promo-price {
       background-color: #C00000;
       color: #fff;
@@ -86,7 +78,6 @@
       font-weight: bold;
       margin-bottom: 10px;
     }
-
     .remark {
       font-size: 0.7rem;
       color: #666;
@@ -97,29 +88,25 @@
 <body>
 
   <h1>Catalogue (100% Sheet)</h1>
-  <input type="file" id="upload" />
   <div id="product-grid" class="product-grid"></div>
 
+  <!-- Include SheetJS library for reading XLSX -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-
   <script>
-    document.getElementById("upload").addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: "array" });
-        const worksheet = workbook.Sheets[workbook.SheetNames[0]];  // Read first sheet
-        const products = XLSX.utils.sheet_to_json(worksheet);  // Convert to JSON
+    // Function to fetch the Excel file and load data
+    async function loadExcelData() {
+      const response = await fetch('data.xlsx'); // Ensure data.xlsx is in the same directory as index.html
+      const arrayBuffer = await response.arrayBuffer(); // Read file as an array buffer
+      const workbook = XLSX.read(arrayBuffer, { type: 'array' }); // Parse workbook
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Read the first sheet
+      const products = XLSX.utils.sheet_to_json(worksheet); // Convert to JSON
+      populateProducts(products); // Populate the page
+    }
 
-        populateProducts(products);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-
+    // Populate the page with products
     function populateProducts(products) {
       const productGrid = document.getElementById("product-grid");
-      productGrid.innerHTML = "";  // Clear existing content
+      productGrid.innerHTML = ""; // Clear existing content
 
       products.forEach((product) => {
         const productBox = document.createElement("div");
@@ -167,6 +154,9 @@
         productGrid.appendChild(productBox);
       });
     }
+
+    // Load Excel data when page loads
+    window.onload = loadExcelData;
   </script>
 
 </body>
