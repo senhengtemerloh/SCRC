@@ -65,8 +65,9 @@ function populateProducts(products) {
     const pricing = document.createElement("div");
     pricing.className = "pricing";
 
-    const formattedRCP = product.RCP ? `RM${product.RCP.replace(/[^0-9.]/g, "")}` : "N/A";
-    const formattedMemberPrice = product.MEMBER ? `RM${product.MEMBER.replace(/[^0-9.]/g, "")}` : "N/A";
+    // Convert to string and ensure proper formatting
+    const formattedRCP = product.RCP ? `RM${String(product.RCP).replace(/[^0-9.]/g, "")}` : "N/A";
+    const formattedMemberPrice = product.MEMBER ? `RM${String(product.MEMBER).replace(/[^0-9.]/g, "")}` : "N/A";
 
     pricing.innerText = `RCP: ${formattedRCP} | Member Price: ${formattedMemberPrice}`;
     productBox.appendChild(pricing);
