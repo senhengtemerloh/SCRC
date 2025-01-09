@@ -91,25 +91,25 @@
 
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script>
-    // Function to fetch Excel file from GitHub Pages and display data
     async function loadExcelData() {
       try {
-        const response = await fetch('data.xlsx'); // Fetch the Excel file
+        // Fetch the Excel file (from GitHub Pages root folder)
+        const response = await fetch(window.location.origin + '/data.xlsx');
         if (!response.ok) {
           throw new Error('Failed to load Excel file');
         }
-        const arrayBuffer = await response.arrayBuffer(); // Read file as binary buffer
-        const workbook = XLSX.read(arrayBuffer, { type: 'array' }); // Parse workbook
-        const worksheet = workbook.Sheets[workbook.SheetNames[0]]; // Read first sheet
-        const products = XLSX.utils.sheet_to_json(worksheet); // Convert sheet to JSON
-        populateProducts(products); // Populate HTML with products
+
+        const arrayBuffer = await response.arrayBuffer();
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+        const products = XLSX.utils.sheet_to_json(worksheet); // Convert to JSON
+        populateProducts(products);
       } catch (error) {
         console.error(error);
         alert("Failed to load Excel file. Please make sure the file is available.");
       }
     }
 
-    // Populate the product catalog with data
     function populateProducts(products) {
       const productGrid = document.getElementById("product-grid");
       productGrid.innerHTML = ""; // Clear any existing content
@@ -122,10 +122,10 @@
         imageContainer.className = "image-container";
 
         const image = document.createElement("img");
-        image.src = product.IMAGE || "assets/placeholder.png"; // Fallback placeholder image
+        image.src = product.IMAGE || "assets/placeholder.png";
         image.alt = product["FULL NAME"] || "Product Image";
         image.onerror = function () {
-          this.src = "assets/fallback-image.png"; // Fallback if image fails to load
+          this.src = "assets/fallback-image.png";
         };
 
         imageContainer.appendChild(image);
@@ -160,7 +160,7 @@
       });
     }
 
-    // Load Excel data when the page loads
+    // Load Excel data on page load
     window.onload = loadExcelData;
   </script>
 
