@@ -1,90 +1,50 @@
-// Function to fetch Excel data and display products
-async function loadExcelData() {
-  try {
-    console.log("Fetching Excel data...");
-    const response = await fetch('https://senhengtemerloh.github.io/SCRC/data.xlsx'); // Full URL to the Excel file
+document.addEventListener('DOMContentLoaded', () => {
+    const url = 'database.xlsx';
+    
+    fetch(url)
+        .then(res => res.arrayBuffer())
+        .then(buffer => {
+            const workbook = XLSX.read(buffer, {type: 'array'});
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet);
+            
+            renderProducts(jsonData);
+        })
+        .catch(error => console.error('Error loading Excel file:', error));
+});
 
-    if (!response.ok) {
-      throw new Error(`Failed to load Excel file: ${response.statusText}`);
-    }
-
-    const arrayBuffer = await response.arrayBuffer(); // Read file as binary buffer
-    const workbook = XLSX.read(arrayBuffer, { type: 'array' }); // Parse workbook
-
-    // Fetch data from the sheet named "100%"
-    const sheetName = "100%";
-    const worksheet = workbook.Sheets[sheetName];
-    if (!worksheet) {
-      throw new Error(`Sheet "${sheetName}" not found in the Excel file.`);
-    }
-
-    const products = XLSX.utils.sheet_to_json(worksheet); // Convert sheet to JSON
-
-    console.log(`Excel data fetched successfully from sheet "${sheetName}":`, products);
-    populateProducts(products); // Populate products on the page
-  } catch (error) {
-    console.error("Error loading Excel file:", error);
-    alert("Failed to load Excel file. Please check the console for details.");
-  }
+function renderProducts(products) {
+    const container = document.getElementById('productContainer');
+    
+    products.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <div class="image-container">
+                <img src="${product.URL}" class="product-image" alt="${product.NAME}">
+                ${product.SPECS ? `<div class="specs-circle">${adjustSpecsFontSize(product.SPECS)}</div>` : ''}
+            </div>
+            <div class="brand-name">${product.BRAND}</div>
+            <div class="product-name">${product.NAME}</div>
+            <div class="scf">${product.SCF}</div>
+            <div class="price-container">
+                <div class="rcp">RCP</div>
+                <div class="member-price">Member $${product.BLK}</div>
+            </div>
+            <div class="s-coin">
+                <span class="s-coin-value">${product['S-COIN']}</span>
+                <span class="s-coin-text">S-COIN Points</span>
+            </div>
+            ${product.Remark ? `<div class="remark">${product.Remark}</div>` : ''}
+        `;
+        container.appendChild(card);
+    });
 }
 
-// Function to populate products dynamically
-function populateProducts(products) {
-  const productGrid = document.getElementById("product-grid");
-  productGrid.innerHTML = ""; // Clear any existing content
-
-  if (products.length === 0) {
-    productGrid.innerHTML = "<p>No products found in the Excel file.</p>";
-    return;
-  }
-
-  products.forEach((product) => {
-    const productBox = document.createElement("div");
-    productBox.className = "product-box";
-
-    const imageContainer = document.createElement("div");
-    imageContainer.className = "image-container";
-
-    const image = document.createElement("img");
-    image.src = product.IMAGE || "https://via.placeholder.com/300x300?text=No+Image"; // Display image URL or placeholder
-    image.alt = product["FULL NAME"] || "Product Image";
-
-    imageContainer.appendChild(image);
-    productBox.appendChild(imageContainer);
-
-    const fullName = document.createElement("div");
-    fullName.className = "full-name";
-    fullName.innerText = product["FULL NAME"] || "No Name Provided";
-    productBox.appendChild(fullName);
-
-    const scfCode = document.createElement("div");
-    scfCode.className = "scf-code";
-    scfCode.innerText = `SCF: ${product.SCF || "N/A"}`;
-    productBox.appendChild(scfCode);
-
-    const brandName = document.createElement("div");
-    brandName.className = "brand-name";
-    brandName.innerText = `Brand: ${product.BRAND || "Unknown Brand"}`;
-    productBox.appendChild(brandName);
-
-    const pricing = document.createElement("div");
-    pricing.className = "pricing";
-    pricing.innerText = `RCP: RM${product.RCP || "N/A"} | Member Price: RM${product.MEMBER || "N/A"}`;
-    productBox.appendChild(pricing);
-
-    const promoPrice = document.createElement("div");
-    promoPrice.className = "promo-price";
-    promoPrice.innerText = `${product.RM || "RM0.00"} + ${product["S-COIN"] || "0"} S-Coin pts`;
-    productBox.appendChild(promoPrice);
-
-    const remark = document.createElement("div");
-    remark.className = "remark";
-    remark.innerText = `Remark: ${product.REMARK || ""}`;
-    productBox.appendChild(remark);
-
-    productGrid.appendChild(productBox);
-  });
+function adjustSpecsFontSize(text) {
+    const length = text.length;
+    if(length > 4) return `<span style="font-size:6px">${text}</span>`;
+    if(length > 2) return `<span style="font-size:8px">${text}</span>`;
+    return text;
 }
-
-// Load Excel data on page load
-window.onload = loadExcelData;
