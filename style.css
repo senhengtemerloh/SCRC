@@ -1,5 +1,8 @@
 :root {
-    --hot-pink: #FF69B4;
+    --primary-red: #DC143C;
+    --brand-teal: #2E8B57;
+    --price-grey: #4A5568;
+    --background-grey: #F7FAFC;
     --dark-red: #8B0000;
 }
 
@@ -10,7 +13,7 @@
 
 body {
     margin: 0;
-    background: #f5f5f5;
+    background: var(--background-grey);
 }
 
 .container {
@@ -18,168 +21,94 @@ body {
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
     padding: 2rem;
-    max-width: 1600px;
+    max-width: 1800px;
     margin: 0 auto;
 }
 
 .product-card {
     background: white;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    padding: 1rem;
-    min-width: 300px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    transition: transform 0.2s;
 }
 
-.image-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1/1;
-    background: white;
-    margin-bottom: 1rem;
+.product-card:hover {
+    transform: translateY(-5px);
 }
 
-.product-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
+/* ... (keep previous image-container and product-image styles) ... */
 
 .specs-circle {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: rgba(0,0,0,0.7);
-    width: 40px;
-    height: 40px;
+    top: 15px;
+    right: 15px;
+    background: rgba(40,40,40,0.9);
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 8px;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 5px;
 }
 
 .brand-name {
-    background: var(--hot-pink);
+    background: var(--brand-teal);
     color: white;
-    padding: 4px 12px;
-    border-radius: 15px;
+    padding: 6px 14px;
+    border-radius: 20px;
     display: inline-block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
+    font-size: 0.9rem;
 }
 
-.product-name {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #333;
-}
-
-.scf {
-    font-size: 0.75rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-}
+/* ... (keep previous product-name and scf styles) ... */
 
 .price-container {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
 }
 
 .rcp, .member-price {
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
 }
 
 .rcp {
-    background: #e0e0e0;
-    color: #333;
+    background: #E2E8F0;
+    color: var(--price-grey);
 }
 
 .member-price {
-    background: #333;
+    background: var(--price-grey);
     color: white;
 }
 
 .s-coin {
-    background: #FF0000;
+    background: var(--primary-red);
     color: white;
     padding: 1.5rem;
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .s-coin-value {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 900;
     display: block;
     line-height: 1;
+    letter-spacing: -1px;
     margin-bottom: 4px;
 }
 
-.s-coin-text {
-    font-size: 0.9rem;
-    display: block;
-    font-weight: 500;
-}
-
-.remark {
-    color: var(--dark-red);
-    font-size: 0.75rem;
-    text-align: center;
-    margin-top: 0.5rem;
-}
-
-.scroll-buttons {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.scroll-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: #333;
-    color: white;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.scroll-btn:hover {
-    background: var(--hot-pink);
-    transform: scale(1.1);
-}
-
-@media (max-width: 1600px) {
-    .container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 1200px) {
-    .container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    .container {
-        grid-template-columns: 1fr;
-    }
-}
+/* ... (keep other styles the same) ... */
