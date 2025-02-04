@@ -14,6 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Error loading Excel file:', error));
 });
 
+function formatMYR(number) {
+    return 'RM' + Number(number).toLocaleString('en-MY');
+}
+
 function renderProducts(products) {
     const container = document.getElementById('productContainer');
     
@@ -29,11 +33,11 @@ function renderProducts(products) {
             <div class="product-name">${product.NAME}</div>
             <div class="scf">${product.SCF}</div>
             <div class="price-container">
-                <div class="rcp">RCP</div>
-                <div class="member-price">Member $${product.BLK}</div>
+                <div class="rcp">RCP: ${formatMYR(product.RCP)}</div>
+                <div class="member-price">Member: ${formatMYR(product.BLK)}</div>
             </div>
             <div class="s-coin">
-                <span class="s-coin-value">${product['S-COIN']}</span>
+                <span class="s-coin-value">${formatMYR(product['S-COIN'])}</span>
                 <span class="s-coin-text">S-COIN Points</span>
             </div>
             ${product.Remark ? `<div class="remark">${product.Remark}</div>` : ''}
@@ -44,7 +48,7 @@ function renderProducts(products) {
 
 function adjustSpecsFontSize(text) {
     const length = text.length;
-    if(length > 4) return `<span style="font-size:6px">${text}</span>`;
-    if(length > 2) return `<span style="font-size:8px">${text}</span>`;
+    if(length > 6) return `<span style="font-size:6px">${text}</span>`;
+    if(length > 4) return `<span style="font-size:7px">${text}</span>`;
     return text;
 }
