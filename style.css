@@ -61,7 +61,7 @@ body {
     position: absolute;
     top: 15px;
     right: 15px;
-    background: rgba(40,40,40,0.95);
+    background: rgba(0,0,0,0.9);
     width: 55px;
     height: 55px;
     border-radius: 50%;
@@ -69,10 +69,19 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     padding: 8px;
     font-size: 0.9rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.specs-circle span {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.2;
+    text-align: center;
+    display: block;
+    width: 100%;
 }
 
 .brand-name {
@@ -85,6 +94,7 @@ body {
     font-weight: 700;
     font-size: 0.95rem;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .product-name {
@@ -141,6 +151,7 @@ body {
     line-height: 1;
     letter-spacing: -1px;
     margin-bottom: 6px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 .s-coin-text {
@@ -214,5 +225,9 @@ body {
     .scroll-buttons {
         right: 15px;
         bottom: 15px;
+    }
+    
+    .s-coin-value {
+        font-size: 2rem;
     }
 }
