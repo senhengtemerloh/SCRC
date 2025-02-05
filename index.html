@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="controls-container">
+        <div class="search-sort-container">
+            <input type="text" id="searchInput" placeholder="Search products or SCF code..." class="search-input">
+            <div class="sort-filter-container">
+                <select id="sortSelect" class="sort-select">
+                    <option value="">Sort By</option>
+                    <option value="scoin-asc">S-COIN: Low to High</option>
+                    <option value="scoin-desc">S-COIN: High to Low</option>
+                    <option value="brand-asc">Brand: A-Z</option>
+                    <option value="brand-desc">Brand: Z-A</option>
+                </select>
+                <select id="brandFilter" class="brand-filter">
+                    <option value="">All Brands</option>
+                </select>
+            </div>
+        </div>
+    </div>
     <div class="container" id="productContainer"></div>
     <div class="scroll-buttons">
         <button class="scroll-btn top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
